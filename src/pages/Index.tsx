@@ -5,19 +5,16 @@ import { initialProjects } from '../data/projects';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import KanbanBoard from '@/components/KanbanBoard';
-import StatusFilter from '@/components/StatusFilter';
 import SortOptions from '@/components/SortOptions';
 import { Input } from '@/components/ui/input';
 import { MessageCircle } from 'lucide-react';
 
-type FilterOption = 'all' | 'released' | 'ongoing' | 'consideration' | 'backlog';
 type SortOption = 'upvotes' | 'newest';
 type SortDirection = 'asc' | 'desc';
 
 const Index = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
-  const [activeFilter, setActiveFilter] = useState<FilterOption>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('upvotes');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
@@ -35,11 +32,6 @@ const Index = () => {
 
   useEffect(() => {
     let result = [...projects];
-    
-    // Apply filters
-    if (activeFilter !== 'all') {
-      result = result.filter(project => project.status === activeFilter);
-    }
     
     // Apply search
     if (searchQuery) {
@@ -65,11 +57,7 @@ const Index = () => {
     });
     
     setFilteredProjects(result);
-  }, [projects, activeFilter, searchQuery, sortBy, sortDirection]);
-
-  const handleFilterChange = (filter: FilterOption) => {
-    setActiveFilter(filter);
-  };
+  }, [projects, searchQuery, sortBy, sortDirection]);
 
   const handleUpvote = (id: string) => {
     setProjects(projects.map(project => {
@@ -137,12 +125,7 @@ const Index = () => {
           />
         </div>
         
-        <div className="md:flex md:justify-between md:items-center mb-6">
-          <StatusFilter 
-            activeFilter={activeFilter}
-            onFilterChange={handleFilterChange}
-          />
-          
+        <div className="md:flex md:justify-end md:items-center mb-6">
           <SortOptions
             sortBy={sortBy}
             sortDirection={sortDirection}
@@ -152,31 +135,17 @@ const Index = () => {
         </div>
         
         {filteredProjects.length > 0 ? (
-          activeFilter === 'all' ? (
-            <KanbanBoard 
-              projects={filteredProjects} 
-              onUpvote={handleUpvote} 
-              onAddComment={handleAddComment} 
-            />
-          ) : (
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredProjects.map(project => (
-                <div key={project.id} className="col-span-1">
-                  <ProjectCard
-                    project={project}
-                    onUpvote={handleUpvote}
-                    onAddComment={handleAddComment}
-                  />
-                </div>
-              ))}
-            </div>
-          )
+          <KanbanBoard 
+            projects={filteredProjects} 
+            onUpvote={handleUpvote} 
+            onAddComment={handleAddComment} 
+          />
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow">
             <MessageCircle className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-lg font-medium text-gray-900">No projects found</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Try adjusting your search or filter to find what you're looking for.
+              Try adjusting your search to find what you're looking for.
             </p>
           </div>
         )}
