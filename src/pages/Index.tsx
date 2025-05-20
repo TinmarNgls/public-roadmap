@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { initialProjects } from '../data/projects';
 import { useToast } from '@/hooks/use-toast';
-import Header from '@/components/Header';
 import KanbanBoard from '@/components/KanbanBoard';
 import { Input } from '@/components/ui/input';
 import { MessageCircle } from 'lucide-react';
@@ -84,15 +83,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header />
-      
       <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Product Roadmap
+            What We're Building (Together)
           </h2>
           <p className="text-gray-600">
-            Help shape our product by exploring our roadmap, upvoting features, and sharing feedback.
+            Explore what's coming, vote on features, and let us know what would make Shotgun even better for your events
           </p>
         </div>
         
@@ -127,7 +124,7 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-gray-500 text-sm">
-              © 2025 Company Name. All rights reserved.
+              © 2025 <a href="https://shotgun.live/" target="_blank" rel="noopener noreferrer" className="hover:underline">Shotgun</a>. All rights reserved.
             </p>
           </div>
         </div>
