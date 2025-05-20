@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Rocket, Wrench, Brain, Pencil } from 'lucide-react';
 
-type FilterOption = 'all' | 'in-progress' | 'planned' | 'consideration';
+type FilterOption = 'all' | 'released' | 'ongoing' | 'consideration' | 'backlog';
 
 interface StatusFilterProps {
   activeFilter: FilterOption;
@@ -23,28 +24,40 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
         All
       </Button>
       <Button
-        variant={activeFilter === 'in-progress' ? 'default' : 'outline'}
+        variant={activeFilter === 'released' ? 'default' : 'outline'}
         size="sm"
-        onClick={() => onFilterChange('in-progress')}
-        className={activeFilter === 'in-progress' ? 'bg-blue-500 hover:bg-blue-600' : ''}
+        onClick={() => onFilterChange('released')}
+        className={activeFilter === 'released' ? 'bg-green-500 hover:bg-green-600' : ''}
       >
-        In Progress
+        <Rocket size={16} className="mr-1" />
+        Released
       </Button>
       <Button
-        variant={activeFilter === 'planned' ? 'default' : 'outline'}
+        variant={activeFilter === 'ongoing' ? 'default' : 'outline'}
         size="sm"
-        onClick={() => onFilterChange('planned')}
-        className={activeFilter === 'planned' ? 'bg-orange-500 hover:bg-orange-600' : ''}
+        onClick={() => onFilterChange('ongoing')}
+        className={activeFilter === 'ongoing' ? 'bg-blue-500 hover:bg-blue-600' : ''}
       >
-        Planned
+        <Wrench size={16} className="mr-1" />
+        Ongoing
       </Button>
       <Button
         variant={activeFilter === 'consideration' ? 'default' : 'outline'}
         size="sm"
         onClick={() => onFilterChange('consideration')}
-        className={activeFilter === 'consideration' ? 'bg-gray-500 hover:bg-gray-600' : ''}
+        className={activeFilter === 'consideration' ? 'bg-purple-500 hover:bg-purple-600' : ''}
       >
-        Under Consideration
+        <Brain size={16} className="mr-1" />
+        Consideration
+      </Button>
+      <Button
+        variant={activeFilter === 'backlog' ? 'default' : 'outline'}
+        size="sm"
+        onClick={() => onFilterChange('backlog')}
+        className={activeFilter === 'backlog' ? 'bg-gray-500 hover:bg-gray-600' : ''}
+      >
+        <Pencil size={16} className="mr-1" />
+        Backlog
       </Button>
     </div>
   );

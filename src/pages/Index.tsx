@@ -4,13 +4,13 @@ import { Comment, Project } from '../types';
 import { initialProjects } from '../data/projects';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
-import ProjectCard from '@/components/ProjectCard';
+import KanbanBoard from '@/components/KanbanBoard';
 import StatusFilter from '@/components/StatusFilter';
 import SortOptions from '@/components/SortOptions';
 import { Input } from '@/components/ui/input';
 import { MessageCircle } from 'lucide-react';
 
-type FilterOption = 'all' | 'in-progress' | 'planned' | 'consideration';
+type FilterOption = 'all' | 'released' | 'ongoing' | 'consideration' | 'backlog';
 type SortOption = 'upvotes' | 'newest';
 type SortDirection = 'asc' | 'desc';
 
@@ -114,65 +114,72 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       <Header />
       
       <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Help shape our product
-            </h2>
-            <p className="text-gray-600">
-              Browse through our roadmap, upvote features you'd like to see, and share your feedback.
-            </p>
-          </div>
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Product Roadmap
+          </h2>
+          <p className="text-gray-600">
+            Help shape our product by exploring our roadmap, upvoting features, and sharing feedback.
+          </p>
+        </div>
+        
+        <div className="mb-6">
+          <Input
+            type="search"
+            placeholder="Search features..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="max-w-md"
+          />
+        </div>
+        
+        <div className="md:flex md:justify-between md:items-center mb-6">
+          <StatusFilter 
+            activeFilter={activeFilter}
+            onFilterChange={handleFilterChange}
+          />
           
-          <div className="mb-6">
-            <Input
-              type="search"
-              placeholder="Search features..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full"
+          <SortOptions
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            onSortChange={setSortBy}
+            onDirectionChange={setSortDirection}
+          />
+        </div>
+        
+        {filteredProjects.length > 0 ? (
+          activeFilter === 'all' ? (
+            <KanbanBoard 
+              projects={filteredProjects} 
+              onUpvote={handleUpvote} 
+              onAddComment={handleAddComment} 
             />
-          </div>
-          
-          <div className="md:flex md:justify-between md:items-center mb-6">
-            <StatusFilter 
-              activeFilter={activeFilter}
-              onFilterChange={handleFilterChange}
-            />
-            
-            <SortOptions
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              onSortChange={setSortBy}
-              onDirectionChange={setSortDirection}
-            />
-          </div>
-          
-          {filteredProjects.length > 0 ? (
-            <div className="space-y-6">
+          ) : (
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {filteredProjects.map(project => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  onUpvote={handleUpvote}
-                  onAddComment={handleAddComment}
-                />
+                <div key={project.id} className="col-span-1">
+                  <ProjectCard
+                    project={project}
+                    onUpvote={handleUpvote}
+                    onAddComment={handleAddComment}
+                  />
+                </div>
               ))}
             </div>
-          ) : (
-            <div className="text-center py-12">
-              <MessageCircle className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-lg font-medium text-gray-900">No projects found</h3>
-              <p className="mt-1 text-sm text-gray-500">
-                Try adjusting your search or filter to find what you're looking for.
-              </p>
-            </div>
-          )}
-        </div>
+          )
+        ) : (
+          <div className="text-center py-12 bg-white rounded-lg shadow">
+            <MessageCircle className="mx-auto h-12 w-12 text-gray-400" />
+            <h3 className="mt-2 text-lg font-medium text-gray-900">No projects found</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Try adjusting your search or filter to find what you're looking for.
+            </p>
+          </div>
+        )}
       </main>
       
       <footer className="bg-white border-t py-8">

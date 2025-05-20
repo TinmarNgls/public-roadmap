@@ -6,19 +6,19 @@ export const initialProjects: Project[] = [
     id: "1",
     title: "User Authentication System",
     description: "Implement secure login and registration functionality with social auth options.",
-    status: "in-progress",
+    status: "released",
     upvotes: 42,
     comments: [
       {
         id: "c1",
         author: "Sarah Johnson",
-        content: "Looking forward to this! Will it include 2FA?",
+        content: "Great job on the implementation! The social login works smoothly.",
         createdAt: "2025-05-15T10:30:00Z",
       },
       {
         id: "c2",
         author: "Miguel Rodriguez",
-        content: "Great to see this is in progress. Hope to see SSO integration too!",
+        content: "Love the SSO integration. Makes logging in so much easier!",
         createdAt: "2025-05-16T14:22:00Z",
       },
     ],
@@ -27,7 +27,7 @@ export const initialProjects: Project[] = [
     id: "2",
     title: "Dashboard Analytics",
     description: "Build an analytics dashboard with data visualization and custom reporting.",
-    status: "planned",
+    status: "ongoing",
     upvotes: 38,
     comments: [
       {
@@ -65,7 +65,7 @@ export const initialProjects: Project[] = [
     id: "5",
     title: "Team Collaboration Features",
     description: "Develop real-time collaboration tools including shared documents and task management.",
-    status: "in-progress",
+    status: "ongoing",
     upvotes: 56,
     comments: [
       {
@@ -80,7 +80,7 @@ export const initialProjects: Project[] = [
     id: "6",
     title: "API Documentation Portal",
     description: "Create comprehensive API documentation with interactive examples and testing tools.",
-    status: "planned",
+    status: "backlog",
     upvotes: 31,
     comments: [],
   },
@@ -88,13 +88,13 @@ export const initialProjects: Project[] = [
     id: "7",
     title: "Dark Mode Support",
     description: "Implement a toggle for dark mode across all application interfaces.",
-    status: "in-progress",
+    status: "released",
     upvotes: 48,
     comments: [
       {
         id: "c6",
         author: "Taylor Kim",
-        content: "Will this respect system preferences automatically?",
+        content: "The dark mode looks fantastic! Much easier on the eyes.",
         createdAt: "2025-05-12T16:05:00Z",
       },
     ],
@@ -103,7 +103,7 @@ export const initialProjects: Project[] = [
     id: "8",
     title: "Notification System Overhaul",
     description: "Redesign the notification system with customizable preferences and better organization.",
-    status: "consideration",
+    status: "backlog",
     upvotes: 23,
     comments: [],
   },

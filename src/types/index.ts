@@ -1,5 +1,5 @@
 
-export type Status = 'in-progress' | 'planned' | 'consideration';
+export type Status = 'released' | 'ongoing' | 'consideration' | 'backlog';
 
 export interface Comment {
   id: string;

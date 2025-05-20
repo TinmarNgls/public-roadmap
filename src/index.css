@@ -77,15 +77,19 @@
   }
 }
 
-.status-in-progress {
+.status-released {
+  @apply bg-green-500 text-white;
+}
+
+.status-ongoing {
   @apply bg-blue-500 text-white;
 }
 
-.status-planned {
-  @apply bg-orange-500 text-white;
+.status-consideration {
+  @apply bg-purple-500 text-white;
 }
 
-.status-consideration {
+.status-backlog {
   @apply bg-gray-500 text-white;
 }
 
