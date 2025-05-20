@@ -5,19 +5,13 @@ import { initialProjects } from '../data/projects';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import KanbanBoard from '@/components/KanbanBoard';
-import SortOptions from '@/components/SortOptions';
 import { Input } from '@/components/ui/input';
 import { MessageCircle } from 'lucide-react';
-
-type SortOption = 'upvotes' | 'newest';
-type SortDirection = 'asc' | 'desc';
 
 const Index = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<SortOption>('upvotes');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   
   const { toast } = useToast();
 
@@ -43,21 +37,8 @@ const Index = () => {
       );
     }
     
-    // Apply sorting
-    result.sort((a, b) => {
-      if (sortBy === 'upvotes') {
-        return sortDirection === 'asc' ? a.upvotes - b.upvotes : b.upvotes - a.upvotes;
-      } else {
-        // For demo purposes, we'll use project IDs as a proxy for "newest"
-        // In a real app, you would use creation timestamps
-        return sortDirection === 'asc' 
-          ? parseInt(a.id) - parseInt(b.id)
-          : parseInt(b.id) - parseInt(a.id);
-      }
-    });
-    
     setFilteredProjects(result);
-  }, [projects, searchQuery, sortBy, sortDirection]);
+  }, [projects, searchQuery]);
 
   const handleUpvote = (id: string) => {
     setProjects(projects.map(project => {
@@ -122,15 +103,6 @@ const Index = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-md"
-          />
-        </div>
-        
-        <div className="md:flex md:justify-end md:items-center mb-6">
-          <SortOptions
-            sortBy={sortBy}
-            sortDirection={sortDirection}
-            onSortChange={setSortBy}
-            onDirectionChange={setSortDirection}
           />
         </div>
         
