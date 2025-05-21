@@ -106,7 +106,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 onChange={(e) => setEmail(e.target.value)}
                 className={`${isCard ? "h-7 text-xs" : ""} flex-1 bg-[#242731] border-gray-600 text-gray-200 w-full`}
                 onClick={(e) => e.stopPropagation()}
-                autoFocus
+                // Remove autoFocus to prevent automatic selection of the email input
               />
               <Button 
                 onClick={handleCancelEmailInput}
