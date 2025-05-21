@@ -36,7 +36,7 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
   };
 
   return (
-    <Card className="bg-[#222530] hover:bg-[#272a33] border border-gray-800 w-full transition-colors cursor-pointer">
+    <Card className="bg-[#2D3034] hover:bg-[#292C2F] border border-gray-800 w-full transition-colors cursor-pointer">
       <div className="p-3">
         <h3 className="text-sm font-medium line-clamp-2 mb-1 text-gray-100">{project.title}</h3>
         <p className="text-xs text-gray-400 line-clamp-2 mb-3">{project.description}</p>
