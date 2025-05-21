@@ -39,9 +39,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   return (
+    // Add tabIndex="-1" to prevent dialog trigger from being focusable
     <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
       <DialogTrigger asChild>
-        <div>
+        <div tabIndex={-1}>
           <ProjectCardContent 
             project={project} 
             onUpvote={onUpvote}
