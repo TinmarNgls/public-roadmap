@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { useToast } from '@/hooks/use-toast';
@@ -144,13 +145,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#111318]">
       <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-gray-100 mb-4">
             What We're Building (Together)
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             Explore what's coming, vote on features, and let us know what would make Shotgun even better for your events
           </p>
         </div>
@@ -161,11 +162,11 @@ const Index = () => {
             placeholder="Search features or ideas..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="max-w-md"
+            className="max-w-md bg-[#1a1c23] border-gray-700 text-gray-200 placeholder:text-gray-500"
           />
           <Button 
             onClick={() => setShowNewIdeaModal(true)}
-            className="flex-shrink-0 bg-purple-500 hover:bg-purple-600"
+            className="flex-shrink-0 bg-purple-600 hover:bg-purple-700"
           >
             <PlusCircle className="mr-2 h-4 w-4" />
             Submit a new idea
@@ -175,7 +176,7 @@ const Index = () => {
         {isLoading ? (
           <div className="text-center py-12">
             <div className="animate-spin h-8 w-8 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p>Loading ideas...</p>
+            <p className="text-gray-300">Loading ideas...</p>
           </div>
         ) : filteredProjects.length > 0 ? (
           <KanbanBoard 
@@ -187,9 +188,9 @@ const Index = () => {
             clearFocusProjectId={() => setNewIdeaId(null)}
           />
         ) : (
-          <div className="text-center py-12 bg-white rounded-lg shadow">
-            <MessageCircle className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-lg font-medium text-gray-900">No projects found</h3>
+          <div className="text-center py-12 bg-[#1a1c23] rounded-lg shadow border border-gray-800">
+            <MessageCircle className="mx-auto h-12 w-12 text-gray-500" />
+            <h3 className="mt-2 text-lg font-medium text-gray-300">No projects found</h3>
             <p className="mt-1 text-sm text-gray-500">
               Try adjusting your search to find what you're looking for.
             </p>
@@ -197,11 +198,11 @@ const Index = () => {
         )}
       </main>
       
-      <footer className="bg-white border-t py-8">
+      <footer className="bg-[#1a1c23] border-t border-gray-800 py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-gray-500 text-sm">
-              © 2025 <a href="https://shotgun.live/" target="_blank" rel="noopener noreferrer" className="hover:underline">Shotgun</a>. All rights reserved.
+              © 2025 <a href="https://shotgun.live/" target="_blank" rel="noopener noreferrer" className="hover:underline text-gray-400">Shotgun</a>. All rights reserved.
             </p>
           </div>
         </div>

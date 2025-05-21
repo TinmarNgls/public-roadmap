@@ -67,19 +67,19 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
     : "May 2025"; // Fallback for existing data
 
   return (
-    <DialogContent className="sm:max-w-xl">
+    <DialogContent className="sm:max-w-xl bg-[#1a1c23] border border-gray-800 text-gray-200">
       <DialogHeader>
         <div className="flex items-center gap-2 mb-2">
           <StatusBadge status={project.status} />
         </div>
-        <DialogTitle className="text-xl">{project.title}</DialogTitle>
-        <DialogDescription className="text-sm text-gray-600">
+        <DialogTitle className="text-xl text-gray-100">{project.title}</DialogTitle>
+        <DialogDescription className="text-sm text-gray-400">
           {project.description}
         </DialogDescription>
       </DialogHeader>
       
       <ScrollArea className="max-h-[75vh]">
-        <div className="flex flex-col text-sm text-gray-500 mt-2 mb-4">
+        <div className="flex flex-col text-sm text-gray-400 mt-2 mb-4">
           <div>Submitted at: {submittedAt}</div>
           <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
         </div>
@@ -95,10 +95,10 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
           />
         </div>
         
-        <Separator className="my-2" />
+        <Separator className="my-2 bg-gray-800" />
         
         <div className="mt-4">
-          <h4 className="font-medium mb-2">Comments ({project.comments.length})</h4>
+          <h4 className="font-medium mb-2 text-gray-300">Comments ({project.comments.length})</h4>
           
           <CommentList comments={project.comments} />
           

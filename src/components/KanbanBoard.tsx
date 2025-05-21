@@ -40,26 +40,26 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
     { 
       id: 'released', 
       title: 'Recently Released', 
-      icon: <Rocket size={20} />, 
-      colorClass: 'bg-green-50 border-green-200 text-green-600' 
+      icon: <Rocket size={18} />, 
+      colorClass: 'border-l-4 border-l-green-500 bg-[#1c1f26]' 
     },
     { 
       id: 'ongoing', 
       title: 'Ongoing', 
-      icon: <Wrench size={20} />, 
-      colorClass: 'bg-blue-50 border-blue-200 text-blue-600' 
+      icon: <Wrench size={18} />, 
+      colorClass: 'border-l-4 border-l-blue-500 bg-[#1c1f26]' 
     },
     { 
       id: 'consideration', 
       title: 'Under Consideration', 
-      icon: <Brain size={20} />, 
-      colorClass: 'bg-purple-50 border-purple-200 text-purple-600' 
+      icon: <Brain size={18} />, 
+      colorClass: 'border-l-4 border-l-purple-500 bg-[#1c1f26]' 
     },
     { 
       id: 'backlog', 
       title: 'Backlog', 
-      icon: <Pencil size={20} />, 
-      colorClass: 'bg-gray-50 border-gray-200 text-gray-600' 
+      icon: <Pencil size={18} />, 
+      colorClass: 'border-l-4 border-l-gray-500 bg-[#1c1f26]' 
     },
   ];
 
@@ -68,12 +68,12 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
       {columns.map((column) => (
         <div
           key={column.id}
-          className="flex-shrink-0 w-full md:w-80 bg-gray-50 rounded-lg shadow-sm"
+          className="flex-shrink-0 w-full md:w-80 bg-[#1a1c23] rounded-lg shadow-md"
         >
-          <div className={`p-3 flex items-center gap-2 border-b ${column.colorClass} rounded-t-lg`}>
-            {column.icon}
-            <h3 className="font-medium text-sm">{column.title}</h3>
-            <span className="ml-auto bg-white rounded-full px-2 py-1 text-xs font-medium">
+          <div className={`p-3 flex items-center gap-2 ${column.colorClass} rounded-t-lg`}>
+            <span className="text-gray-300">{column.icon}</span>
+            <h3 className="font-medium text-sm text-gray-200">{column.title}</h3>
+            <span className="ml-auto bg-[#272a33] rounded-full px-2.5 py-1 text-xs font-medium text-gray-300">
               {groupedProjects[column.id]?.length || 0}
             </span>
           </div>

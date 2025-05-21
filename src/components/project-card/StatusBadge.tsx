@@ -9,15 +9,15 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   const getStatusClass = (status: string) => {
     switch(status) {
       case 'ongoing':
-        return 'bg-blue-500 text-white';
+        return 'bg-blue-600 text-white';
       case 'released':
-        return 'bg-green-500 text-white';
+        return 'bg-green-600 text-white';
       case 'consideration':
-        return 'bg-purple-500 text-white';
+        return 'bg-purple-600 text-white';
       case 'backlog':
-        return 'bg-gray-500 text-white';
+        return 'bg-gray-600 text-white';
       default:
-        return 'bg-gray-500 text-white';
+        return 'bg-gray-600 text-white';
     }
   };
   
