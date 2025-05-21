@@ -1,3 +1,4 @@
+
 import { supabase } from './client';
 import type { Project, Comment } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
@@ -319,7 +320,7 @@ export async function toggleUpvote(ideaId: string, email?: string) {
   return { added: true, alreadyUpvoted: true };
 }
 
-// New function to remove an upvote
+// Remove an upvote
 export async function removeUpvote(ideaId: string) {
   if (usingMockData) {
     console.log('Using mock data - this upvote would be removed in Supabase');
