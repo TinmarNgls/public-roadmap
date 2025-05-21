@@ -37,22 +37,22 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
     id: 'released',
     title: 'Recently Released',
     icon: <Rocket size={18} />,
-    colorClass: 'border-l-4 border-l-green-500 bg-[#1c1f26]'
+    colorClass: 'border-l-4 border-l-green-500 bg-[#383b3e]'
   }, {
     id: 'ongoing',
     title: 'Ongoing',
     icon: <Wrench size={18} />,
-    colorClass: 'border-l-4 border-l-blue-500 bg-[#1c1f26]'
+    colorClass: 'border-l-4 border-l-blue-500 bg-[#383b3e]'
   }, {
     id: 'next_up',
     title: 'Next Up',
     icon: <Eye size={18} />,
-    colorClass: 'border-l-4 border-l-purple-500 bg-[#1c1f26]'
+    colorClass: 'border-l-4 border-l-purple-500 bg-[#383b3e]'
   }, {
     id: 'submitted',
     title: 'Submitted',
     icon: <Archive size={18} />,
-    colorClass: 'border-l-4 border-l-gray-500 bg-[#1c1f26]'
+    colorClass: 'border-l-4 border-l-gray-500 bg-[#383b3e]'
   }];
   return <div className="flex flex-col md:flex-row gap-5 overflow-x-auto pb-8">
       {columns.map(column => <div key={column.id} className="flex-shrink-0 w-full md:w-80 bg-[#1a1c23] rounded-lg shadow-md">
