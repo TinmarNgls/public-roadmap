@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -75,7 +74,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
     e.preventDefault(); // Prevent the default action
     setShowEmailField(false);
   };
-
+  
   return (
     <div className={isCard ? "flex" : "w-full"}>
       {!showEmailField ? (
@@ -113,7 +112,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 onClick={handleCancelEmailInput}
                 size="sm"
                 variant="outline"
-                className={`${isCard ? "h-7 text-xs" : ""} flex-1 border-gray-700 bg-[#252830] text-gray-200 hover:bg-gray-700 hover:text-white`}
+                className={`${isCard ? "h-7 text-xs" : ""} flex-1 bg-white/10 border-white/10 text-gray-200 hover:bg-white/10`}
               >
                 Cancel
               </Button>
