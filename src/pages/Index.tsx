@@ -30,7 +30,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#111318]">
+    <div className="min-h-screen bg-[#222529]">
       <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 w-full max-w-none">
         <PageHeader />
         
