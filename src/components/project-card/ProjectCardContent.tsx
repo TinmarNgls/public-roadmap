@@ -15,35 +15,18 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
   onUpvote,
   onRemoveUpvote
 }) => {
-  const [showEmailInput, setShowEmailInput] = useState(false);
-  
-  // When upvote status changes, update UI accordingly
-  useEffect(() => {
-    if (!project.userHasUpvoted) {
-      setShowEmailInput(false);
-    }
-  }, [project.userHasUpvoted]);
-  
   const handleUpvote = () => {
-    // Only process upvote if user hasn't upvoted yet
-    if (!project.userHasUpvoted) {
-      onUpvote(project.id);
-      // Show email input after upvoting
-      setShowEmailInput(true);
-    }
+    onUpvote(project.id);
   };
 
   const handleRemoveUpvote = () => {
-    // Only process remove upvote if user has upvoted
-    if (project.userHasUpvoted && onRemoveUpvote) {
+    if (onRemoveUpvote) {
       onRemoveUpvote(project.id);
-      setShowEmailInput(false);
     }
   };
   
   const handleEmailSubmit = (email: string) => {
     onUpvote(project.id, email);
-    setShowEmailInput(false);
   };
 
   return (
@@ -56,7 +39,6 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
           <UpvoteButton 
             upvotes={project.upvotes}
             userHasUpvoted={project.userHasUpvoted}
-            showEmailInput={showEmailInput}
             isCard={true}
             onUpvote={handleUpvote}
             onRemoveUpvote={handleRemoveUpvote}
