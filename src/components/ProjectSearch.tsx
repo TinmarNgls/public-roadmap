@@ -2,7 +2,7 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
+import { Search, Plus } from 'lucide-react';
 
 interface ProjectSearchProps {
   searchQuery: string;
@@ -11,24 +11,27 @@ interface ProjectSearchProps {
 }
 
 const ProjectSearch: React.FC<ProjectSearchProps> = ({ 
-  searchQuery, 
-  onSearchChange, 
-  onNewIdeaClick 
+  searchQuery,
+  onSearchChange,
+  onNewIdeaClick
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-start mb-6 justify-between">
-      <Input
-        type="search"
-        placeholder="Search features or ideas..."
-        value={searchQuery}
-        onChange={onSearchChange}
-        className="max-w-md bg-[#1a1c23] border-gray-700 text-gray-200 placeholder:text-gray-500"
-      />
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-center my-6">
+      <div className="relative flex-1">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+        <Input
+          type="text"
+          placeholder="Search ideas..."
+          className="pl-8 bg-[#1a1c23] border-gray-800 text-gray-200 placeholder:text-gray-600"
+          value={searchQuery}
+          onChange={onSearchChange}
+        />
+      </div>
       <Button 
-        onClick={onNewIdeaClick}
-        className="flex-shrink-0 bg-purple-600 hover:bg-purple-700"
+        onClick={onNewIdeaClick} 
+        className="bg-purple-500 hover:bg-purple-600 text-white"
       >
-        <PlusCircle className="mr-2 h-4 w-4" />
+        <Plus className="mr-1 h-4 w-4" />
         Submit a new idea
       </Button>
     </div>

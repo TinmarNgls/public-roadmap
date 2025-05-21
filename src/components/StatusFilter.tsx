@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Rocket, Wrench, Eye, Archive } from 'lucide-react';
 
-type FilterOption = 'all' | 'released' | 'ongoing' | 'consideration' | 'backlog';
+type FilterOption = 'all' | 'released' | 'ongoing' | 'next_up' | 'submitted';
 
 interface StatusFilterProps {
   activeFilter: FilterOption;
@@ -42,22 +42,22 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
         Ongoing
       </Button>
       <Button
-        variant={activeFilter === 'consideration' ? 'default' : 'outline'}
+        variant={activeFilter === 'next_up' ? 'default' : 'outline'}
         size="sm"
-        onClick={() => onFilterChange('consideration')}
-        className={activeFilter === 'consideration' ? 'bg-purple-500 hover:bg-purple-600' : ''}
+        onClick={() => onFilterChange('next_up')}
+        className={activeFilter === 'next_up' ? 'bg-purple-500 hover:bg-purple-600' : ''}
       >
         <Eye size={16} className="mr-1" />
-        Consideration
+        Next Up
       </Button>
       <Button
-        variant={activeFilter === 'backlog' ? 'default' : 'outline'}
+        variant={activeFilter === 'submitted' ? 'default' : 'outline'}
         size="sm"
-        onClick={() => onFilterChange('backlog')}
-        className={activeFilter === 'backlog' ? 'bg-gray-500 hover:bg-gray-600' : ''}
+        onClick={() => onFilterChange('submitted')}
+        className={activeFilter === 'submitted' ? 'bg-gray-500 hover:bg-gray-600' : ''}
       >
         <Archive size={16} className="mr-1" />
-        Backlog
+        Submitted
       </Button>
     </div>
   );

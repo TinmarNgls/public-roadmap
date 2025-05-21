@@ -1,5 +1,5 @@
 
-export type Status = 'released' | 'ongoing' | 'consideration' | 'backlog';
+export type Status = 'released' | 'ongoing' | 'next_up' | 'submitted';
 
 export interface Comment {
   id: string;

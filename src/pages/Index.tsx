@@ -24,6 +24,11 @@ const Index = () => {
     handleNewIdeaSubmit,
   } = useProjects();
 
+  const handleSubmitNewIdea = (title: string, description: string, author: string) => {
+    handleNewIdeaSubmit(title, description, author);
+    setShowNewIdeaModal(false); // Close the modal after submission
+  };
+
   return (
     <div className="min-h-screen bg-[#111318]">
       <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 w-full max-w-none">
@@ -51,7 +56,7 @@ const Index = () => {
       <NewIdeaModal 
         open={showNewIdeaModal} 
         onClose={() => setShowNewIdeaModal(false)}
-        onSubmit={handleNewIdeaSubmit}
+        onSubmit={handleSubmitNewIdea}
         isSubmitting={newIdeaMutation.isPending}
       />
     </div>

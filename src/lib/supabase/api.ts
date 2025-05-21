@@ -27,7 +27,7 @@ const mockProjects: Project[] = [
     id: '2',
     title: 'Automated email reminders',
     description: 'Send automated reminders to ticket holders X days before the event.',
-    status: 'consideration',
+    status: 'next_up',
     upvotes: 28,
     comments: [],
     submittedAt: '2025-03-15T14:45:00Z',
@@ -140,13 +140,13 @@ export async function createIdea(title: string, description: string, author: str
       description,
       created_by: author,
       created_at: new Date().toISOString(),
-      status: 'consideration'
+      status: 'submitted'
     };
     mockProjects.unshift({
       id: mockIdea.id,
       title: mockIdea.title,
       description: mockIdea.description,
-      status: 'consideration',
+      status: 'submitted',
       upvotes: 0,
       comments: [],
       submittedAt: mockIdea.created_at,
@@ -163,7 +163,7 @@ export async function createIdea(title: string, description: string, author: str
         title,
         description,
         created_by: author,
-        status: 'consideration'
+        status: 'submitted'
       }
     ])
     .select();

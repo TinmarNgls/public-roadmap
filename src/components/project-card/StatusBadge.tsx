@@ -12,9 +12,9 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
         return 'bg-blue-600 text-white';
       case 'released':
         return 'bg-green-600 text-white';
-      case 'consideration':
+      case 'next_up':
         return 'bg-purple-600 text-white';
-      case 'backlog':
+      case 'submitted':
         return 'bg-gray-600 text-white';
       default:
         return 'bg-gray-600 text-white';
@@ -27,10 +27,10 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
         return 'Ongoing';
       case 'released':
         return 'Released';
-      case 'consideration':
-        return 'Under Consideration';
-      case 'backlog':
-        return 'Backlog';
+      case 'next_up':
+        return 'Next Up';
+      case 'submitted':
+        return 'Submitted';
       default:
         return status;
     }

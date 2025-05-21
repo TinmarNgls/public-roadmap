@@ -87,7 +87,7 @@ export function useProjects() {
       createIdea(title, description, author),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['projects'] });
-      setNewIdeaId(data.id);
+      setNewIdeaId(data.id); // Set the new idea ID so it will be focused when displayed
       toast({
         title: "Idea submitted!",
         description: "Thank you for your contribution.",

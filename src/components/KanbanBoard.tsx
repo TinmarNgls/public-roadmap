@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Project, Status } from '../types';
 import ProjectCard from './ProjectCard';
 import { Rocket, Wrench, Eye, Archive } from 'lucide-react';
@@ -50,14 +50,14 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
       colorClass: 'border-l-4 border-l-blue-500 bg-[#1c1f26]' 
     },
     { 
-      id: 'consideration', 
-      title: 'Under Consideration', 
+      id: 'next_up', 
+      title: 'Next Up', 
       icon: <Eye size={18} />, 
       colorClass: 'border-l-4 border-l-purple-500 bg-[#1c1f26]' 
     },
     { 
-      id: 'backlog', 
-      title: 'Backlog', 
+      id: 'submitted', 
+      title: 'Submitted', 
       icon: <Archive size={18} />, 
       colorClass: 'border-l-4 border-l-gray-500 bg-[#1c1f26]' 
     },
