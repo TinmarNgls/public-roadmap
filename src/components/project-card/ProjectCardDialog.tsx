@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Project, Comment } from '../../types';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -25,18 +25,19 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
   onUpvote,
   onAddComment
 }) => {
-  const [showEmailInput, setShowEmailInput] = React.useState(false);
+  const [showEmailInput, setShowEmailInput] = useState(false);
   
-  React.useEffect(() => {
+  // Update the UI state when upvote status changes
+  useEffect(() => {
     if (!project.userHasUpvoted) {
       setShowEmailInput(false);
     }
   }, [project.userHasUpvoted]);
 
   const handleUpvote = () => {
-    onUpvote(project.id);
-    
-    if (project.userHasUpvoted === false) {
+    // Only process upvote if user hasn't upvoted yet
+    if (!project.userHasUpvoted) {
+      onUpvote(project.id);
       setShowEmailInput(true);
     }
   };

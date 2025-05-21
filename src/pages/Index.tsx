@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { useToast } from '@/hooks/use-toast';
@@ -108,6 +107,7 @@ const Index = () => {
   }, [projects, searchQuery]);
 
   const handleUpvote = (id: string, email?: string) => {
+    // Track upvote with email when provided
     upvoteMutation.mutate({ id, email });
   };
 

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Project } from '../../types';
 import { UpvoteButton } from './UpvoteButton';
@@ -13,20 +13,20 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
   project,
   onUpvote
 }) => {
-  const [showEmailInput, setShowEmailInput] = React.useState(false);
+  const [showEmailInput, setShowEmailInput] = useState(false);
   
-  React.useEffect(() => {
+  // When upvote status changes, update UI accordingly
+  useEffect(() => {
     if (!project.userHasUpvoted) {
       setShowEmailInput(false);
     }
   }, [project.userHasUpvoted]);
   
   const handleUpvote = () => {
-    // Process the upvote first
-    onUpvote(project.id);
-    
-    // Show email input only after upvoting (if not already shown)
-    if (project.userHasUpvoted === false) {
+    // Only process upvote if user hasn't upvoted yet
+    if (!project.userHasUpvoted) {
+      onUpvote(project.id);
+      // Show email input after upvoting
       setShowEmailInput(true);
     }
   };

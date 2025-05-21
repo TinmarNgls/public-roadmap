@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ChevronUp } from 'lucide-react';
@@ -22,27 +22,44 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   onEmailSubmit 
 }) => {
   const [email, setEmail] = useState('');
+  const [showEmailField, setShowEmailField] = useState(false);
   const isEmailValid = email.includes('@');
   
-  const handleEmailSubmit = () => {
+  // Show email field after upvoting
+  useEffect(() => {
+    if (userHasUpvoted) {
+      setShowEmailField(showEmailInput);
+    }
+  }, [userHasUpvoted, showEmailInput]);
+
+  const handleUpvote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Only allow upvote if user hasn't already upvoted
+    if (!userHasUpvoted) {
+      onUpvote();
+      setShowEmailField(true);
+    }
+  };
+  
+  const handleEmailSubmit = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (onEmailSubmit && isEmailValid) {
       onEmailSubmit(email);
       setEmail('');
+      setShowEmailField(false);
     }
   };
 
   return (
     <div className={isCard ? "flex flex-col items-end" : ""}>
       <Button
-        onClick={(e) => {
-          e.stopPropagation();
-          onUpvote();
-        }}
+        onClick={handleUpvote}
         variant={userHasUpvoted ? "default" : "outline"}
         size="sm"
+        disabled={userHasUpvoted === true} // Disable if user has already upvoted
         className={`flex items-center gap-1 ${isCard ? 'px-2 py-0 h-7' : ''} ${
           userHasUpvoted 
-            ? "bg-purple-500 hover:bg-purple-600" 
+            ? "bg-purple-500 hover:bg-purple-500" // No hover effect needed when disabled
             : "hover:bg-purple-500/10 hover:text-purple-500 hover:border-purple-500"
         }`}
       >
@@ -50,8 +67,8 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
         <span className={isCard ? "text-xs" : ""}>{upvotes}</span>
       </Button>
       
-      {/* Show email input AFTER upvoting */}
-      {userHasUpvoted && showEmailInput && (
+      {/* Show email input after upvoting */}
+      {userHasUpvoted && showEmailField && (
         <div className="flex flex-col gap-2 mt-3 w-full">
           <p className="text-sm text-gray-600">
             {isCard ? "Get notified when released:" : "Get notified when this feature is released (optional)"}
@@ -66,10 +83,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
               onClick={(e) => e.stopPropagation()}
             />
             <Button 
-              onClick={(e) => {
-                e.stopPropagation();
-                handleEmailSubmit();
-              }}
+              onClick={handleEmailSubmit}
               disabled={!isEmailValid}
               size="sm"
               className={`bg-white text-black border border-black hover:bg-gray-100 ${isCard ? "h-7 px-2 py-0" : ""}`}

@@ -1,4 +1,3 @@
-
 import { supabase } from './client';
 import type { Project, Comment } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
@@ -40,6 +39,27 @@ const mockProjects: Project[] = [
 const usingMockData = import.meta.env.DEV && 
   (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY);
 
+// Track upvoted ideas in session storage
+const getUpvotedIdeas = (): Record<string, boolean> => {
+  try {
+    const upvotedIdeas = sessionStorage.getItem('upvotedIdeas');
+    return upvotedIdeas ? JSON.parse(upvotedIdeas) : {};
+  } catch (error) {
+    console.error('Error reading from session storage:', error);
+    return {};
+  }
+};
+
+const setUpvotedIdea = (ideaId: string, upvoted: boolean): void => {
+  try {
+    const upvotedIdeas = getUpvotedIdeas();
+    upvotedIdeas[ideaId] = upvoted;
+    sessionStorage.setItem('upvotedIdeas', JSON.stringify(upvotedIdeas));
+  } catch (error) {
+    console.error('Error writing to session storage:', error);
+  }
+};
+
 // Ideas API
 export async function fetchIdeas(): Promise<Project[]> {
   // Return mock data if not connected to Supabase
@@ -65,6 +85,9 @@ export async function fetchIdeas(): Promise<Project[]> {
       console.error('Error fetching ideas:', error);
       throw error;
     }
+
+    // Get upvoted ideas from session storage
+    const upvotedIdeas = getUpvotedIdeas();
 
     // Fetch comments and upvotes for each idea
     const ideasWithDetails = await Promise.all(
@@ -95,7 +118,7 @@ export async function fetchIdeas(): Promise<Project[]> {
           })) || [],
           submittedAt: idea.created_at,
           submittedBy: idea.created_by,
-          userHasUpvoted: false // Will be updated in the component
+          userHasUpvoted: !!upvotedIdeas[idea.id]  // Check session storage for upvote status
         };
       })
     );
@@ -214,56 +237,86 @@ export async function toggleUpvote(ideaId: string, email?: string) {
       if (project.userHasUpvoted) {
         project.upvotes--;
         project.userHasUpvoted = false;
+        setUpvotedIdea(ideaId, false);
         return { added: false, upvoteId: null };
       } else {
         project.upvotes++;
         project.userHasUpvoted = true;
+        setUpvotedIdea(ideaId, true);
         return { added: true, upvoteId: uuidv4() };
       }
     }
     return { added: false, upvoteId: null };
   }
 
-  // First check if an upvote with this email exists
-  const { data: existingUpvotes } = await supabase
-    .from('upvotes')
-    .select('id')
-    .eq('idea_id', ideaId)
-    .eq('email', email || '');
+  // Get upvote status from session storage
+  const upvotedIdeas = getUpvotedIdeas();
+  const hasUpvoted = upvotedIdeas[ideaId];
 
-  // If upvote exists, remove it
-  if (existingUpvotes && existingUpvotes.length > 0) {
-    const { error } = await supabase
-      .from('upvotes')
-      .delete()
-      .eq('id', existingUpvotes[0].id);
-    
-    if (error) {
-      console.error('Error removing upvote:', error);
+  // If already upvoted and has email, update with the email
+  if (hasUpvoted && email) {
+    try {
+      // Check for existing upvotes with this same idea_id and email
+      const { data: existingUpvotes } = await supabase
+        .from('upvotes')
+        .select('id')
+        .eq('idea_id', ideaId)
+        .eq('email', email);
+
+      // If no existing upvote with this email, create one
+      if (!existingUpvotes || existingUpvotes.length === 0) {
+        const { data, error } = await supabase
+          .from('upvotes')
+          .insert([{ idea_id: ideaId, email }])
+          .select();
+
+        if (error) {
+          console.error('Error adding email to upvote:', error);
+          throw error;
+        }
+
+        return { added: true, upvoteId: data[0].id, withEmail: true };
+      }
+
+      return { added: true, upvoteId: existingUpvotes[0].id, withEmail: true };
+    } catch (error) {
+      console.error('Error updating upvote with email:', error);
       throw error;
     }
-
-    return { added: false, upvoteId: null };
   }
-  // Otherwise add a new upvote
-  else {
-    const { data, error } = await supabase
-      .from('upvotes')
-      .insert([
-        {
-          idea_id: ideaId,
-          email: email || null
-        }
-      ])
-      .select();
 
-    if (error) {
+  // If not yet upvoted, add the upvote
+  if (!hasUpvoted) {
+    try {
+      const upvoteData: { idea_id: string; email?: string } = { 
+        idea_id: ideaId
+      };
+      
+      if (email) {
+        upvoteData.email = email;
+      }
+
+      const { data, error } = await supabase
+        .from('upvotes')
+        .insert([upvoteData])
+        .select();
+
+      if (error) {
+        console.error('Error adding upvote:', error);
+        throw error;
+      }
+
+      // Update session storage
+      setUpvotedIdea(ideaId, true);
+      
+      return { added: true, upvoteId: data[0].id };
+    } catch (error) {
       console.error('Error adding upvote:', error);
       throw error;
     }
-
-    return { added: true, upvoteId: data[0].id };
   }
+
+  return { added: true, alreadyUpvoted: true };
 }
 
 // Check if user has already upvoted
