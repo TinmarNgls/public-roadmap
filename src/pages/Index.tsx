@@ -121,7 +121,7 @@ const Index = () => {
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-4 items-start mb-6">
+        <div className="flex flex-col sm:flex-row gap-4 items-start mb-6 justify-between">
           <Input
             type="search"
             placeholder="Search features or ideas..."
