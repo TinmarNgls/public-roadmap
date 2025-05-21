@@ -1,9 +1,9 @@
 import React from 'react';
 const PageHeader: React.FC = () => {
   return <div className="mb-16 py-0">
-      <div className="flex justify-between items-center gap-24">
+      <div className="flex justify-between items-start gap-24 my-0 py-0 pt-1">
         <div>
-          <h2 className="text-3xl font-bold text-gray-100 mb-2">
+          <h2 className="text-3xl font-bold text-gray-100 mb-2 mt-0">
             What We're Building (Together)
           </h2>
           <p className="text-gray-400">
