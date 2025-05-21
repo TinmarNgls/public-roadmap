@@ -81,14 +81,19 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
       {!showEmailField ? (
         <Button
           onClick={handleUpvoteClick}
-          variant={userHasUpvoted ? "default" : "outline"}
+          variant="outline"
           size="sm"
           className={`flex items-center gap-1 ${isCard ? 'px-2 py-0 h-7' : ''} 
             ${userHasUpvoted 
-              ? 'bg-purple-500 hover:bg-purple-700' 
-              : 'hover:bg-purple-500/10 hover:text-purple-500 hover:border-purple-500'}`}
+              ? 'bg-white/10 border-white/10 hover:bg-white/10' 
+              : 'bg-white/10 hover:bg-white/10 border-white/10'}`}
         >
-          <ThumbsUp size={isCard ? 14 : 16} className={userHasUpvoted ? "animate-pulse-once" : ""} />
+          <ThumbsUp 
+            size={isCard ? 14 : 16} 
+            className={userHasUpvoted ? "animate-pulse-once" : ""}
+            fill={userHasUpvoted ? "#7d55ca" : "none"}
+            color={userHasUpvoted ? "#7d55ca" : "currentColor"}
+          />
           <span className={isCard ? "text-xs" : ""}>{upvotes} votes</span>
         </Button>
       ) : (
