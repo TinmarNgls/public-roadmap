@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -120,7 +121,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 onClick={handleEmailSubmit}
                 disabled={!isEmailValid}
                 size="sm"
-                className={`flex-1 bg-purple-500 hover:bg-purple-700 text-white ${isCard ? "h-7 text-xs" : ""}`}
+                className={`flex-1 bg-[#7D55CA] hover:bg-[#A581E0] text-white ${isCard ? "h-7 text-xs" : ""}`}
               >
                 Upvote
               </Button>

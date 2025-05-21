@@ -29,7 +29,7 @@ const ProjectSearch: React.FC<ProjectSearchProps> = ({
       </div>
       <Button 
         onClick={onNewIdeaClick} 
-        className="bg-purple-500 hover:bg-purple-600 text-white"
+        className="bg-[#7D55CA] hover:bg-[#A581E0] text-white"
       >
         <Plus className="mr-1 h-4 w-4" />
         Submit a new idea

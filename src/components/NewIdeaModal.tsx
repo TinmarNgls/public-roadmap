@@ -132,7 +132,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             type="submit"
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="bg-purple-500 hover:bg-purple-600 text-white"
+            className="bg-[#7D55CA] hover:bg-[#A581E0] text-white"
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </Button>

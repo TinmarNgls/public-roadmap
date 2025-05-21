@@ -52,7 +52,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, onCancel }) 
           <Button 
             type="submit" 
             disabled={!name.trim() || !comment.trim()}
-            className="flex-1 flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-700"
+            className="flex-1 flex items-center justify-center gap-2 bg-[#7D55CA] hover:bg-[#A581E0]"
           >
             <SendHorizontal size={16} />
             Post comment
