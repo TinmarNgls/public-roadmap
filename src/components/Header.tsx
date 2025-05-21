@@ -14,15 +14,7 @@ const Header = () => {
               Vote and comment on upcoming features
             </p>
           </div>
-          <div className="flex items-center space-x-4">
-            <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none"
-            >
-              GitHub
-            </a>
+          <div>
             <img 
               src="/lovable-uploads/25759202-3791-4ca0-8fe6-e6da11f9aca1.png" 
               alt="Shotgun Logo" 
