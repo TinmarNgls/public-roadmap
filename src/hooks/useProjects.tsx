@@ -38,8 +38,17 @@ export function useProjects() {
   // Handle remove upvote mutation
   const removeUpvoteMutation = useMutation({
     mutationFn: (id: string) => removeUpvote(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projects'] });
+    onSuccess: (data) => {
+      if (data.removed) {
+        queryClient.invalidateQueries({ queryKey: ['projects'] });
+      } else {
+        console.error('Failed to remove upvote:', data);
+        toast({
+          title: "Error",
+          description: "Failed to remove your vote. Please try again.",
+          variant: "destructive"
+        });
+      }
     },
     onError: (error) => {
       console.error('Error removing upvote:', error);

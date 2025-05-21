@@ -1,3 +1,4 @@
+
 import { supabase } from './client';
 import type { Project, Comment } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
@@ -340,16 +341,26 @@ export async function removeUpvote(ideaId: string) {
       return { removed: false, reason: 'not_upvoted' };
     }
     
-    // Remove the upvote from Supabase (we don't have user info, so delete based on idea_id only)
-    // Note: In a real app with authentication, you would filter by user ID too
-    const { error } = await supabase
+    // Find all upvotes for this idea to ensure we delete the right one
+    const { data: existingUpvotes } = await supabase
       .from('upvotes')
-      .delete()
+      .select('id')
       .eq('idea_id', ideaId);
-    
-    if (error) {
-      console.error('Error removing upvote:', error);
-      throw error;
+
+    if (existingUpvotes && existingUpvotes.length > 0) {
+      // Remove the upvote from Supabase (we don't have user info, so we delete based on idea_id only)
+      // Note: In a real app with authentication, you would filter by user ID too
+      const { error } = await supabase
+        .from('upvotes')
+        .delete()
+        .eq('id', existingUpvotes[0].id);
+      
+      if (error) {
+        console.error('Error removing upvote:', error);
+        throw error;
+      }
+    } else {
+      console.log('No upvote found to remove');
     }
     
     // Update session storage

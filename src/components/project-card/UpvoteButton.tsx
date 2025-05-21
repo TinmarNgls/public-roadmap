@@ -42,6 +42,11 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
     if (userHasUpvoted && onRemoveUpvote) {
       onRemoveUpvote();
       setShowEmailField(false);
+      
+      // Add toast for removing upvote
+      toast({
+        title: "Upvote removed",
+      });
     } else {
       // If not upvoted, show email field
       setShowEmailField(true);
