@@ -13,6 +13,7 @@ import { UpvoteButton } from './UpvoteButton';
 import { CommentList } from './CommentList';
 import { CommentForm } from './CommentForm';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProjectCardDialogProps {
   project: Project;
@@ -27,8 +28,13 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
   onRemoveUpvote,
   onAddComment
 }) => {
+  const { toast } = useToast();
+  
   const handleUpvote = () => {
     onUpvote(project.id);
+    toast({
+      title: "Thanks for upvoting! 🚀",
+    });
   };
   
   const handleRemoveUpvote = () => {
@@ -39,6 +45,10 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
   
   const handleEmailSubmit = (email: string) => {
     onUpvote(project.id, email);
+    toast({
+      title: "Thanks for upvoting!",
+      description: "We'll let you know when this is released 🤗",
+    });
   };
 
   const handleCommentSubmit = (author: string, content: string) => {

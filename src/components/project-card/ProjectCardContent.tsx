@@ -3,6 +3,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Project } from '../../types';
 import { UpvoteButton } from './UpvoteButton';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProjectCardContentProps {
   project: Project;
@@ -15,8 +16,13 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
   onUpvote,
   onRemoveUpvote
 }) => {
+  const { toast } = useToast();
+  
   const handleUpvote = () => {
     onUpvote(project.id);
+    toast({
+      title: "Thanks for upvoting! 🚀",
+    });
   };
 
   const handleRemoveUpvote = () => {

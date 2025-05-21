@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ChevronUp, X } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface UpvoteButtonProps {
   upvotes: number;
@@ -26,6 +27,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   const [email, setEmail] = useState('');
   const [showEmailField, setShowEmailField] = useState(false);
   const isEmailValid = email.includes('@');
+  const { toast } = useToast();
   
   // Reset email field state when upvote status changes
   useEffect(() => {
@@ -49,9 +51,23 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   const handleEmailSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
     onUpvote();
-    if (onEmailSubmit && email) {
-      onEmailSubmit(email);
+    
+    // Show different toast messages based on whether email was provided
+    if (email) {
+      toast({
+        title: "Thanks for upvoting!",
+        description: "We'll let you know when this is released 🤗",
+      });
+      
+      if (onEmailSubmit) {
+        onEmailSubmit(email);
+      }
+    } else {
+      toast({
+        title: "Thanks for upvoting! 🚀",
+      });
     }
+    
     setEmail('');
     setShowEmailField(false);
   };
