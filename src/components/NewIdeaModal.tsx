@@ -110,7 +110,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
                 id="author"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                placeholder="Your name or organisation"
+                placeholder="Your organisation name"
                 required
                 className="bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500"
               />
