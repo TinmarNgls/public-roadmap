@@ -99,7 +99,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
               placeholder="Your organiser name"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`${isCard ? "h-7 text-xs" : ""} bg-[#242731] border-gray-600 text-gray-200 w-full`}
+              className={`${isCard ? "h-7 text-xs" : ""} bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500`}
               onClick={(e) => e.stopPropagation()}
               required
             />
@@ -108,7 +108,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 onClick={handleCancelEmailInput}
                 size="sm"
                 variant="outline"
-                className={`${isCard ? "h-7 text-xs" : ""} flex-1`}
+                className={`${isCard ? "h-7 text-xs" : ""} flex-1 border-gray-700 bg-[#252830] text-gray-200 hover:bg-gray-700 hover:text-white`}
               >
                 Cancel
               </Button>
