@@ -52,8 +52,8 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
       
       {/* Show email input AFTER upvoting */}
       {userHasUpvoted && showEmailInput && (
-        <div className={`${isCard ? "w-full mt-2" : ""} flex ${isCard ? "flex-col" : ""} gap-${isCard ? "2" : "3"} ${!isCard ? "mt-3" : ""}`}>
-          <p className={`text-${isCard ? "xs" : "sm"} text-gray-600`}>
+        <div className="flex flex-col gap-2 mt-3 w-full">
+          <p className="text-sm text-gray-600">
             {isCard ? "Get notified when released:" : "Get notified when this feature is released (optional)"}
           </p>
           <div className="flex gap-1">
