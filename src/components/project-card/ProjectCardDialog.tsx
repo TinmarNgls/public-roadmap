@@ -96,10 +96,12 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
           </div>
           
           {showCommentForm && (
-            <CommentForm 
-              onSubmit={handleCommentSubmit} 
-              onCancel={() => setShowCommentForm(false)} 
-            />
+            <div className="mb-6">
+              <CommentForm 
+                onSubmit={handleCommentSubmit} 
+                onCancel={() => setShowCommentForm(false)} 
+              />
+            </div>
           )}
           
           <CommentList comments={project.comments} />

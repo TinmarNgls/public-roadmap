@@ -39,14 +39,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, onCancel }) 
           className="h-20 bg-[#242731] border-gray-700 text-gray-200"
         />
         <div className="flex space-x-2">
-          <Button 
-            type="submit" 
-            disabled={!name.trim() || !comment.trim()}
-            className="flex-1 flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-700"
-          >
-            <SendHorizontal size={16} />
-            Post comment
-          </Button>
           {onCancel && (
             <Button 
               type="button"
@@ -57,6 +49,14 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, onCancel }) 
               Cancel
             </Button>
           )}
+          <Button 
+            type="submit" 
+            disabled={!name.trim() || !comment.trim()}
+            className="flex-1 flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-700"
+          >
+            <SendHorizontal size={16} />
+            Post comment
+          </Button>
         </div>
       </div>
     </form>
