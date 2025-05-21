@@ -79,7 +79,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
       ) : (
         <div className="flex flex-col gap-2 mt-1 w-full">
           <p className={`${isCard ? "text-xs" : "text-sm"} font-medium text-gray-300 w-full`}>
-            Get notified when released{isCard ? "" : " (optional)"}
+            Get notified when released{isCard ? " (optional)" : ""}
           </p>
           <div className="flex flex-col gap-2 w-full">
             <div className="flex gap-1 w-full">
@@ -107,7 +107,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
               size="sm"
               className={`w-full bg-purple-500 hover:bg-purple-700 text-white ${isCard ? "h-7 text-xs" : ""}`}
             >
-              Submit
+              Upvote
             </Button>
           </div>
         </div>

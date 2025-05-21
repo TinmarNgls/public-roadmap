@@ -57,13 +57,13 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
           <StatusBadge status={project.status} />
         </div>
         <DialogTitle className="text-xl text-gray-100">{project.title}</DialogTitle>
-        <DialogDescription className="text-sm text-gray-400">
+        <DialogDescription className="text-sm text-gray-100">
           {project.description}
         </DialogDescription>
       </DialogHeader>
       
       <ScrollArea className="max-h-[75vh]">
-        <div className="flex flex-col text-sm text-gray-100 mt-2 mb-4">
+        <div className="flex flex-col text-sm text-gray-400 mt-2 mb-4">
           <div>Submitted at: {submittedAt}</div>
           <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
         </div>
