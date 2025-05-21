@@ -78,7 +78,8 @@ export async function fetchIdeas(): Promise<Project[]> {
         created_at,
         status,
         title,
-        description
+        description,
+        status_updated_at
       `)
       .order('created_at', { ascending: false });
 
@@ -117,8 +118,7 @@ export async function fetchIdeas(): Promise<Project[]> {
             content: c.comment,
             createdAt: c.created_at
           })) || [],
-          submittedAt: idea.created_at,
-          submittedBy: idea.created_by,
+          statusUpdatedAt: idea.status_updated_at,
           userHasUpvoted: !!upvotedIdeas[idea.id]  // Check session storage for upvote status
         };
       })

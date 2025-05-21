@@ -18,4 +18,5 @@ export interface Project {
   userHasUpvoted?: boolean;
   submittedAt?: string;
   submittedBy?: string;
+  statusUpdatedAt?: string;
 }
