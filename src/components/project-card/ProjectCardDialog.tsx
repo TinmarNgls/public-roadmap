@@ -12,6 +12,7 @@ import { StatusBadge } from './StatusBadge';
 import { UpvoteButton } from './UpvoteButton';
 import { CommentList } from './CommentList';
 import { CommentForm } from './CommentForm';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface ProjectCardDialogProps {
   project: Project;
@@ -55,7 +56,7 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
     : "May 2025"; // Fallback for existing data
 
   return (
-    <DialogContent className="sm:max-w-md">
+    <DialogContent className="sm:max-w-xl">
       <DialogHeader>
         <div className="flex items-center gap-2 mb-2">
           <StatusBadge status={project.status} />
@@ -66,30 +67,32 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
         </DialogDescription>
       </DialogHeader>
       
-      <div className="flex flex-col text-sm text-gray-500 mt-2 mb-4">
-        <div>Submitted at: {submittedAt}</div>
-        <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
-      </div>
-      
-      <div className="mb-4">
-        <UpvoteButton
-          upvotes={project.upvotes}
-          userHasUpvoted={project.userHasUpvoted}
-          showEmailInput={showEmailInput}
-          onUpvote={handleUpvote}
-          onEmailSubmit={handleEmailSubmit}
-        />
-      </div>
-      
-      <Separator className="my-2" />
-      
-      <div className="mt-4">
-        <h4 className="font-medium mb-2">Comments ({project.comments.length})</h4>
+      <ScrollArea className="max-h-[60vh]">
+        <div className="flex flex-col text-sm text-gray-500 mt-2 mb-4">
+          <div>Submitted at: {submittedAt}</div>
+          <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
+        </div>
         
-        <CommentList comments={project.comments} />
+        <div className="mb-4">
+          <UpvoteButton
+            upvotes={project.upvotes}
+            userHasUpvoted={project.userHasUpvoted}
+            showEmailInput={showEmailInput}
+            onUpvote={handleUpvote}
+            onEmailSubmit={handleEmailSubmit}
+          />
+        </div>
         
-        <CommentForm onSubmit={handleCommentSubmit} />
-      </div>
+        <Separator className="my-2" />
+        
+        <div className="mt-4">
+          <h4 className="font-medium mb-2">Comments ({project.comments.length})</h4>
+          
+          <CommentList comments={project.comments} />
+          
+          <CommentForm onSubmit={handleCommentSubmit} />
+        </div>
+      </ScrollArea>
     </DialogContent>
   );
 };
