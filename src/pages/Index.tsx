@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { useToast } from '@/hooks/use-toast';
@@ -146,7 +145,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#111318]">
-      <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 w-full max-w-none">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-100 mb-4">
             What We're Building (Together)
