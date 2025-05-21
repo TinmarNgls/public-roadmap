@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { Button } from '@/components/ui/button';
@@ -136,7 +135,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </DialogDescription>
         </DialogHeader>
         
-        <div className="flex justify-between items-center text-sm text-gray-500 mt-2 mb-4">
+        <div className="flex flex-col text-sm text-gray-500 mt-2 mb-4">
           <div>Submitted at: {submittedAt}</div>
           <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
         </div>
