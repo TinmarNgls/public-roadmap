@@ -22,7 +22,7 @@ const ProjectSearch: React.FC<ProjectSearchProps> = ({
         <Input
           type="text"
           placeholder="Search ideas..."
-          className="pl-8 bg-[#383b3e] border-gray-800 text-gray-200 placeholder:text-gray-600"
+          className="pl-8 bg-[#383b3e] border-gray-800 text-gray-200 placeholder:9b9d9e"
           value={searchQuery}
           onChange={onSearchChange}
         />
