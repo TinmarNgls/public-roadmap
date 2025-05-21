@@ -85,7 +85,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
             <div className="flex gap-1 w-full">
               <Input
                 type="email"
-                placeholder="Your email (optional)"
+                placeholder="Your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={`${isCard ? "h-7 text-xs" : ""} flex-1 bg-[#242731] border-gray-600 text-gray-200 w-full`}

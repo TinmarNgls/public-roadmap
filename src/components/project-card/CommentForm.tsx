@@ -1,54 +1,49 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { SendHorizontal } from 'lucide-react';
 
 interface CommentFormProps {
-  onSubmit: (author: string, content: string) => void;
+  onSubmit: (name: string, comment: string) => void;
 }
 
 export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
+  const [name, setName] = useState('');
   const [comment, setComment] = useState('');
-  const [author, setAuthor] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (comment.trim() && author.trim()) {
-      onSubmit(author, comment);
+    if (name.trim() && comment.trim()) {
+      onSubmit(name, comment);
+      setName('');
       setComment('');
-      setAuthor('');
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
-      <h4 className="font-medium mb-2 text-gray-200">Add a comment</h4>
-      <div className="mb-3">
-        <input
-          type="text"
-          placeholder="Your name or organisation"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          className="w-full p-2 border border-gray-700 rounded text-sm bg-[#1e2029] text-gray-200 placeholder:text-gray-500"
-          required
+      <div className="space-y-3">
+        <Input 
+          placeholder="Your name" 
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="bg-[#242731] border-gray-700 text-gray-200"
         />
-      </div>
-      <div className="mb-3">
-        <textarea
-          placeholder="Your comment"
+        <Textarea 
+          placeholder="Write a comment..." 
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="w-full p-2 border border-gray-700 rounded text-sm bg-[#1e2029] text-gray-200 placeholder:text-gray-500"
-          rows={3}
-          required
-        ></textarea>
-      </div>
-      <div className="flex justify-end">
+          className="h-20 bg-[#242731] border-gray-700 text-gray-200"
+        />
         <Button 
           type="submit" 
-          size="sm"
-          className="bg-purple-500 hover:bg-purple-600"
+          disabled={!name.trim() || !comment.trim()}
+          className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-700"
         >
-          Post Comment
+          <SendHorizontal size={16} />
+          Post comment
         </Button>
       </div>
     </form>
