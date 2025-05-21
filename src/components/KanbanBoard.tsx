@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Project, Status } from '../types';
 import ProjectCard from './ProjectCard';
-import { Rocket, Wrench, Eye, Pencil } from 'lucide-react';
+import { Rocket, Wrench, Eye, Archive } from 'lucide-react';
 
 interface KanbanBoardProps {
   projects: Project[];
@@ -58,7 +58,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
     { 
       id: 'backlog', 
       title: 'Backlog', 
-      icon: <Pencil size={18} />, 
+      icon: <Archive size={18} />, 
       colorClass: 'border-l-4 border-l-gray-500 bg-[#1c1f26]' 
     },
   ];
