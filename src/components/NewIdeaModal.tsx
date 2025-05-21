@@ -75,7 +75,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
             <div className="space-y-2">
               <label htmlFor="title" className="text-sm font-medium text-gray-300">
-                Idea title*
+                Idea title
               </label>
               <Input
                 id="title"
@@ -89,7 +89,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             
             <div className="space-y-2">
               <label htmlFor="description" className="text-sm font-medium text-gray-300">
-                Short description*
+                Short description
               </label>
               <Textarea
                 id="description"
@@ -104,7 +104,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             
             <div className="space-y-2">
               <label htmlFor="author" className="text-sm font-medium text-gray-300">
-                Organiser name or organisation*
+                Organiser name or organisation
               </label>
               <Input
                 id="author"
