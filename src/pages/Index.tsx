@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useProjects } from '@/hooks/useProjects';
 import NewIdeaModal from '@/components/NewIdeaModal';
 import PageHeader from '@/components/PageHeader';
-import PageFooter from '@/components/PageFooter';
 import ProjectSearch from '@/components/ProjectSearch';
 import ProjectDisplay from '@/components/ProjectDisplay';
 
@@ -50,8 +49,6 @@ const Index = () => {
           clearFocusProjectId={() => setNewIdeaId(null)}
         />
       </main>
-      
-      <PageFooter />
 
       <NewIdeaModal 
         open={showNewIdeaModal} 
