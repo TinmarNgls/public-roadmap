@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { Button } from '@/components/ui/button';
@@ -80,11 +81,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   const handleUpvote = () => {
-    // Always upvote first
-    onUpvote(project.id);
-    
-    // Only show email input if the user hasn't upvoted before, and we just made them upvote
-    if (!project.userHasUpvoted) {
+    // If user already upvoted or email is provided, process the upvote
+    if (project.userHasUpvoted || email) {
+      onUpvote(project.id, email);
+      setShowEmailInput(false);
+      setEmail('');
+    } else {
+      // Show email input instead of upvoting immediately
       setShowEmailInput(true);
     }
   };
@@ -124,7 +127,35 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <h3 className="text-sm font-medium line-clamp-2 mb-1">{project.title}</h3>
             <p className="text-xs text-gray-600 line-clamp-2 mb-3">{project.description}</p>
             
-            <div className="flex items-center justify-end mt-2">
+            <div className="flex flex-col items-end mt-2">
+              {/* Show email input before upvoting on the card view */}
+              {showEmailInput && !project.userHasUpvoted && (
+                <div className="w-full mb-2 flex flex-col gap-2">
+                  <p className="text-xs text-gray-600">Get notified when released:</p>
+                  <div className="flex gap-1">
+                    <Input
+                      type="email"
+                      placeholder="Your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="h-7 text-xs flex-1"
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    <Button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEmailSubmit();
+                      }}
+                      disabled={!isEmailValid}
+                      size="sm"
+                      className="bg-white text-black border border-black hover:bg-gray-100 h-7 px-2 py-0"
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </div>
+              )}
+              
               <Button
                 onClick={(e) => {
                   e.stopPropagation();
