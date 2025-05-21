@@ -55,7 +55,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
     colorClass: 'border-l-4 border-l-gray-500 bg-[#383b3e]'
   }];
   return <div className="flex flex-col md:flex-row gap-5 overflow-x-auto pb-8">
-      {columns.map(column => <div key={column.id} className="flex-shrink-0 w-full md:w-80 bg-[#1a1c23] rounded-lg shadow-md">
+      {columns.map(column => <div key={column.id} className="flex-shrink-0 w-full md:w-80 rounded-lg shadow-md bg-[#383b3e]">
           <div className={`p-3 flex items-center gap-2 ${column.colorClass} rounded-t-lg`}>
             <span className="text-gray-300">{column.icon}</span>
             <h3 className="font-medium text-sm text-gray-200">{column.title}</h3>
