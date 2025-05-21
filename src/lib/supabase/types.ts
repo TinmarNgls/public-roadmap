@@ -15,7 +15,7 @@ export interface Database {
           id: string
           created_by: string
           created_at: string
-          status: 'released' | 'ongoing' | 'consideration' | 'backlog'
+          status: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted'
           title: string
           description: string
         }
@@ -23,7 +23,7 @@ export interface Database {
           id?: string
           created_by: string
           created_at?: string
-          status: 'released' | 'ongoing' | 'consideration' | 'backlog'
+          status: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted'
           title: string
           description: string
         }
@@ -31,7 +31,7 @@ export interface Database {
           id?: string
           created_by?: string
           created_at?: string
-          status?: 'released' | 'ongoing' | 'consideration' | 'backlog'
+          status?: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted'
           title?: string
           description?: string
         }
