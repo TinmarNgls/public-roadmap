@@ -11,7 +11,7 @@ const PageHeader: React.FC = () => {
           </p>
         </div>
         <div>
-          <img src="/lovable-uploads/25759202-3791-4ca0-8fe6-e6da11f9aca1.png" alt="Shotgun Logo" className="" />
+          <img src="/lovable-uploads/25759202-3791-4ca0-8fe6-e6da11f9aca1.png" alt="Shotgun Logo" className="h-5" />
         </div>
       </div>
     </div>;
