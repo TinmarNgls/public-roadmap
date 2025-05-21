@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, PlusCircle } from 'lucide-react';
 import NewIdeaModal from '@/components/NewIdeaModal';
-import { fetchIdeas, toggleUpvote, addComment, createIdea } from '@/lib/supabase/api';
+import { fetchIdeas, toggleUpvote, removeUpvote, addComment, createIdea } from '@/lib/supabase/api';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const Index = () => {
@@ -37,6 +37,22 @@ const Index = () => {
       toast({
         title: "Error",
         description: "Failed to process your vote. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Handle remove upvote mutation
+  const removeUpvoteMutation = useMutation({
+    mutationFn: (id: string) => removeUpvote(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+    },
+    onError: (error) => {
+      console.error('Error removing upvote:', error);
+      toast({
+        title: "Error",
+        description: "Failed to remove your vote. Please try again.",
         variant: "destructive"
       });
     }
@@ -111,6 +127,10 @@ const Index = () => {
     upvoteMutation.mutate({ id, email });
   };
 
+  const handleRemoveUpvote = (id: string) => {
+    removeUpvoteMutation.mutate(id);
+  };
+
   const handleAddComment = (id: string, comment: Omit<Comment, 'id' | 'createdAt'>) => {
     commentMutation.mutate({ 
       ideaId: id, 
@@ -160,7 +180,8 @@ const Index = () => {
         ) : filteredProjects.length > 0 ? (
           <KanbanBoard 
             projects={filteredProjects} 
-            onUpvote={handleUpvote} 
+            onUpvote={handleUpvote}
+            onRemoveUpvote={handleRemoveUpvote}
             onAddComment={handleAddComment}
             focusProjectId={newIdeaId}
             clearFocusProjectId={() => setNewIdeaId(null)}

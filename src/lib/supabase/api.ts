@@ -319,6 +319,51 @@ export async function toggleUpvote(ideaId: string, email?: string) {
   return { added: true, alreadyUpvoted: true };
 }
 
+// New function to remove an upvote
+export async function removeUpvote(ideaId: string) {
+  if (usingMockData) {
+    console.log('Using mock data - this upvote would be removed in Supabase');
+    const project = mockProjects.find(p => p.id === ideaId);
+    if (project && project.userHasUpvoted) {
+      project.upvotes--;
+      project.userHasUpvoted = false;
+      setUpvotedIdea(ideaId, false);
+      return { removed: true };
+    }
+    return { removed: false };
+  }
+
+  try {
+    // Get upvote status from session storage
+    const upvotedIdeas = getUpvotedIdeas();
+    
+    // Check if the user has upvoted this idea
+    if (!upvotedIdeas[ideaId]) {
+      return { removed: false, reason: 'not_upvoted' };
+    }
+    
+    // Remove the upvote from Supabase (we don't have user info, so delete based on idea_id only)
+    // Note: In a real app with authentication, you would filter by user ID too
+    const { error } = await supabase
+      .from('upvotes')
+      .delete()
+      .eq('idea_id', ideaId);
+    
+    if (error) {
+      console.error('Error removing upvote:', error);
+      throw error;
+    }
+    
+    // Update session storage
+    setUpvotedIdea(ideaId, false);
+    
+    return { removed: true };
+  } catch (error) {
+    console.error('Error removing upvote:', error);
+    throw error;
+  }
+}
+
 // Check if user has already upvoted
 export async function checkUserUpvote(ideaId: string, email?: string) {
   if (usingMockData) {

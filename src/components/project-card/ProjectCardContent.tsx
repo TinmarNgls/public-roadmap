@@ -7,11 +7,13 @@ import { UpvoteButton } from './UpvoteButton';
 interface ProjectCardContentProps {
   project: Project;
   onUpvote: (id: string, email?: string) => void;
+  onRemoveUpvote?: (id: string) => void;
 }
 
 export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({ 
   project,
-  onUpvote
+  onUpvote,
+  onRemoveUpvote
 }) => {
   const [showEmailInput, setShowEmailInput] = useState(false);
   
@@ -28,6 +30,14 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
       onUpvote(project.id);
       // Show email input after upvoting
       setShowEmailInput(true);
+    }
+  };
+
+  const handleRemoveUpvote = () => {
+    // Only process remove upvote if user has upvoted
+    if (project.userHasUpvoted && onRemoveUpvote) {
+      onRemoveUpvote(project.id);
+      setShowEmailInput(false);
     }
   };
   
@@ -49,6 +59,7 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
             showEmailInput={showEmailInput}
             isCard={true}
             onUpvote={handleUpvote}
+            onRemoveUpvote={handleRemoveUpvote}
             onEmailSubmit={handleEmailSubmit}
           />
         </div>

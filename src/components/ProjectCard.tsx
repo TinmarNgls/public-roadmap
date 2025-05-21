@@ -8,6 +8,7 @@ import { ProjectCardDialog } from './project-card/ProjectCardDialog';
 interface ProjectCardProps {
   project: Project;
   onUpvote: (id: string, email?: string) => void;
+  onRemoveUpvote?: (id: string) => void;
   onAddComment: (id: string, comment: Omit<Comment, 'id' | 'createdAt'>) => void;
   isFocused?: boolean;
   onDialogClose?: () => void;
@@ -16,6 +17,7 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ 
   project, 
   onUpvote,
+  onRemoveUpvote,
   onAddComment,
   isFocused = false,
   onDialogClose
@@ -42,7 +44,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div>
           <ProjectCardContent 
             project={project} 
-            onUpvote={onUpvote} 
+            onUpvote={onUpvote}
+            onRemoveUpvote={onRemoveUpvote}
           />
         </div>
       </DialogTrigger>
@@ -50,6 +53,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <ProjectCardDialog
         project={project}
         onUpvote={onUpvote}
+        onRemoveUpvote={onRemoveUpvote}
         onAddComment={onAddComment}
       />
     </Dialog>
@@ -57,4 +61,3 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 };
 
 export default ProjectCard;
-

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronUp } from 'lucide-react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 
 interface UpvoteButtonProps {
   upvotes: number;
@@ -10,6 +10,7 @@ interface UpvoteButtonProps {
   showEmailInput?: boolean;
   isCard?: boolean;
   onUpvote: () => void;
+  onRemoveUpvote?: () => void;
   onEmailSubmit?: (email: string) => void;
 }
 
@@ -19,6 +20,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   showEmailInput = false,
   isCard = false,
   onUpvote, 
+  onRemoveUpvote,
   onEmailSubmit 
 }) => {
   const [email, setEmail] = useState('');
@@ -40,6 +42,15 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
       setShowEmailField(true);
     }
   };
+
+  const handleRemoveUpvote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Only allow upvote removal if user has already upvoted
+    if (userHasUpvoted && onRemoveUpvote) {
+      onRemoveUpvote();
+      setShowEmailField(false);
+    }
+  };
   
   const handleEmailSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -52,20 +63,29 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
 
   return (
     <div className={isCard ? "flex flex-col items-end" : ""}>
-      <Button
-        onClick={handleUpvote}
-        variant={userHasUpvoted ? "default" : "outline"}
-        size="sm"
-        disabled={userHasUpvoted === true} // Disable if user has already upvoted
-        className={`flex items-center gap-1 ${isCard ? 'px-2 py-0 h-7' : ''} ${
-          userHasUpvoted 
-            ? "bg-purple-500 hover:bg-purple-500" // No hover effect needed when disabled
-            : "hover:bg-purple-500/10 hover:text-purple-500 hover:border-purple-500"
-        }`}
-      >
-        <ChevronUp size={isCard ? 14 : 16} className={userHasUpvoted ? "animate-pulse-once" : ""} />
-        <span className={isCard ? "text-xs" : ""}>{upvotes}</span>
-      </Button>
+      {!userHasUpvoted ? (
+        <Button
+          onClick={handleUpvote}
+          variant="outline"
+          size="sm"
+          className={`flex items-center gap-1 ${isCard ? 'px-2 py-0 h-7' : ''} 
+            hover:bg-purple-500/10 hover:text-purple-500 hover:border-purple-500`}
+        >
+          <ChevronUp size={isCard ? 14 : 16} />
+          <span className={isCard ? "text-xs" : ""}>{upvotes}</span>
+        </Button>
+      ) : (
+        <Button
+          onClick={handleRemoveUpvote}
+          variant="default"
+          size="sm"
+          className={`flex items-center gap-1 ${isCard ? 'px-2 py-0 h-7' : ''} 
+            bg-purple-500 hover:bg-purple-700`}
+        >
+          <ChevronUp size={isCard ? 14 : 16} className="animate-pulse-once" />
+          <span className={isCard ? "text-xs" : ""}>{upvotes}</span>
+        </Button>
+      )}
       
       {/* Show email input after upvoting */}
       {userHasUpvoted && showEmailField && (

@@ -17,12 +17,14 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 interface ProjectCardDialogProps {
   project: Project;
   onUpvote: (id: string, email?: string) => void;
+  onRemoveUpvote?: (id: string) => void;
   onAddComment: (id: string, comment: Omit<Comment, 'id' | 'createdAt'>) => void;
 }
 
 export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
   project,
   onUpvote,
+  onRemoveUpvote,
   onAddComment
 }) => {
   const [showEmailInput, setShowEmailInput] = useState(false);
@@ -39,6 +41,14 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
     if (!project.userHasUpvoted) {
       onUpvote(project.id);
       setShowEmailInput(true);
+    }
+  };
+  
+  const handleRemoveUpvote = () => {
+    // Only process remove upvote if user has upvoted
+    if (project.userHasUpvoted && onRemoveUpvote) {
+      onRemoveUpvote(project.id);
+      setShowEmailInput(false);
     }
   };
   
@@ -80,6 +90,7 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
             userHasUpvoted={project.userHasUpvoted}
             showEmailInput={showEmailInput}
             onUpvote={handleUpvote}
+            onRemoveUpvote={handleRemoveUpvote}
             onEmailSubmit={handleEmailSubmit}
           />
         </div>
