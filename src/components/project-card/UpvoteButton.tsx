@@ -50,19 +50,18 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   
   const handleEmailSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onUpvote();
     
     // Show different toast messages based on whether email was provided
-    if (email) {
+    if (email && onEmailSubmit) {
+      // Use onEmailSubmit to handle the email case
+      onEmailSubmit(email);
       toast({
         title: "Thanks for upvoting!",
         description: "We'll let you know when this is released 🤗",
       });
-      
-      if (onEmailSubmit) {
-        onEmailSubmit(email);
-      }
     } else {
+      // Use regular onUpvote for cases without email
+      onUpvote();
       toast({
         title: "Thanks for upvoting! 🚀",
       });

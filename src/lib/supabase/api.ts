@@ -1,4 +1,3 @@
-
 import { supabase } from './client';
 import type { Project, Comment } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
@@ -254,39 +253,37 @@ export async function toggleUpvote(ideaId: string, email?: string) {
   const upvotedIdeas = getUpvotedIdeas();
   const hasUpvoted = upvotedIdeas[ideaId];
 
-  // If already upvoted and has email, update with the email
+  // If already upvoted and an email is provided, we should just update the existing upvote
   if (hasUpvoted && email) {
     try {
-      // Check for existing upvotes with this same idea_id and email
+      // Find the upvote(s) for this idea (may be without email)
       const { data: existingUpvotes } = await supabase
         .from('upvotes')
         .select('id')
-        .eq('idea_id', ideaId)
-        .eq('email', email);
+        .eq('idea_id', ideaId);
 
-      // If no existing upvote with this email, create one
-      if (!existingUpvotes || existingUpvotes.length === 0) {
+      if (existingUpvotes && existingUpvotes.length > 0) {
+        // Update the first upvote with the email
         const { data, error } = await supabase
           .from('upvotes')
-          .insert([{ idea_id: ideaId, email }])
+          .update({ email: email })
+          .eq('id', existingUpvotes[0].id)
           .select();
 
         if (error) {
-          console.error('Error adding email to upvote:', error);
+          console.error('Error updating upvote with email:', error);
           throw error;
         }
 
         return { added: true, upvoteId: data[0].id, withEmail: true };
       }
-
-      return { added: true, upvoteId: existingUpvotes[0].id, withEmail: true };
     } catch (error) {
       console.error('Error updating upvote with email:', error);
       throw error;
     }
   }
 
-  // If not yet upvoted, add the upvote
+  // If not yet upvoted, add a single upvote (with email if provided)
   if (!hasUpvoted) {
     try {
       const upvoteData: { idea_id: string; email?: string } = { 
