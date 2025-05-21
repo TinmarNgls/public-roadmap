@@ -67,7 +67,7 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
         </DialogDescription>
       </DialogHeader>
       
-      <ScrollArea className="max-h-[60vh]">
+      <ScrollArea className="max-h-[75vh]">
         <div className="flex flex-col text-sm text-gray-500 mt-2 mb-4">
           <div>Submitted at: {submittedAt}</div>
           <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
