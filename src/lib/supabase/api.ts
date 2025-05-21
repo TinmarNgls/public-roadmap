@@ -9,7 +9,7 @@ const mockProjects: Project[] = [
     id: '1',
     title: 'Improved mobile ticket scanning',
     description: 'Add the ability to scan multiple tickets in a single go, rather than one by one.',
-    status: 'in-progress',
+    status: 'ongoing',
     upvotes: 42,
     comments: [
       {
