@@ -145,7 +145,7 @@ const Index = () => {
           />
           <Button 
             onClick={() => setShowNewIdeaModal(true)}
-            className="flex-shrink-0"
+            className="flex-shrink-0 bg-purple-500 hover:bg-purple-600"
           >
             <PlusCircle className="mr-2 h-4 w-4" />
             Submit a new idea

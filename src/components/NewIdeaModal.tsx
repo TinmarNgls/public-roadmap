@@ -110,13 +110,13 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             
             <div className="space-y-2">
               <label htmlFor="author" className="text-sm font-medium">
-                Organiser name*
+                Organiser name or organisation*
               </label>
               <Input
                 id="author"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                placeholder="Your name"
+                placeholder="Your name or organisation"
                 required
               />
             </div>
@@ -134,6 +134,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             <Button 
               type="submit"
               disabled={isSubmitting}
+              className="bg-purple-500 hover:bg-purple-600"
             >
               Submit
             </Button>

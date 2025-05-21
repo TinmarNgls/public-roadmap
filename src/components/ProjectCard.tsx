@@ -264,10 +264,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
           
           <form onSubmit={handleSubmitComment} className="mt-4">
+            <h4 className="font-medium mb-2">Add a comment</h4>
             <div className="mb-3">
               <input
                 type="text"
-                placeholder="Your name"
+                placeholder="Your name or organisation"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 className="w-full p-2 border rounded text-sm"
@@ -285,7 +286,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               ></textarea>
             </div>
             <div className="flex justify-end">
-              <Button type="submit" size="sm">
+              <Button 
+                type="submit" 
+                size="sm"
+                className="bg-purple-500 hover:bg-purple-600"
+              >
                 Post Comment
               </Button>
             </div>
