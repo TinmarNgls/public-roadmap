@@ -41,7 +41,7 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
         <h3 className="text-sm font-medium line-clamp-2 mb-1 text-gray-100">{project.title}</h3>
         <p className="text-xs text-gray-400 line-clamp-2 mb-3">{project.description}</p>
         
-        <div className="w-full mt-2">
+        <div className="mt-2">
           <UpvoteButton 
             upvotes={project.upvotes}
             userHasUpvoted={project.userHasUpvoted}

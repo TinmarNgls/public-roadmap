@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronUp, X } from 'lucide-react';
+import { ThumbsUp } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface UpvoteButtonProps {
@@ -18,7 +18,6 @@ interface UpvoteButtonProps {
 export const UpvoteButton: React.FC<UpvoteButtonProps> = ({ 
   upvotes, 
   userHasUpvoted, 
-  showEmailInput = false,
   isCard = false,
   onUpvote, 
   onRemoveUpvote,
@@ -26,7 +25,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
 }) => {
   const [email, setEmail] = useState('');
   const [showEmailField, setShowEmailField] = useState(false);
-  const isEmailValid = email.includes('@');
+  const isEmailValid = email.trim() !== '';
   const { toast } = useToast();
   
   // Reset email field state when upvote status changes
@@ -43,7 +42,6 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
       onRemoveUpvote();
       setShowEmailField(false);
       
-      // Add toast for removing upvote
       toast({
         title: "Upvote removed",
       });
@@ -56,19 +54,12 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   const handleEmailSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    // Show different toast messages based on whether email was provided
     if (email && onEmailSubmit) {
       // Use onEmailSubmit to handle the email case
       onEmailSubmit(email);
       toast({
         title: "Thanks for upvoting!",
         description: "We'll let you know when this is released 🤗",
-      });
-    } else {
-      // Use regular onUpvote for cases without email
-      onUpvote();
-      toast({
-        title: "Thanks for upvoting! 🚀",
       });
     }
     
@@ -82,7 +73,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   };
 
   return (
-    <div className={isCard ? "flex flex-col w-full" : "w-full"}>
+    <div className={isCard ? "flex justify-end" : "w-full"}>
       {!showEmailField ? (
         <Button
           onClick={handleUpvoteClick}
@@ -93,42 +84,42 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
               ? 'bg-purple-500 hover:bg-purple-700' 
               : 'hover:bg-purple-500/10 hover:text-purple-500 hover:border-purple-500'}`}
         >
-          <ChevronUp size={isCard ? 14 : 16} className={userHasUpvoted ? "animate-pulse-once" : ""} />
-          <span className={isCard ? "text-xs" : ""}>{upvotes}</span>
+          <ThumbsUp size={isCard ? 14 : 16} className={userHasUpvoted ? "animate-pulse-once" : ""} />
+          <span className={isCard ? "text-xs" : ""}>{upvotes} votes</span>
         </Button>
       ) : (
         <div className="flex flex-col gap-2 mt-1 w-full">
           <p className={`${isCard ? "text-xs" : "text-sm"} font-medium text-gray-300 w-full`}>
-            Get notified when released{isCard ? " (optional)" : ""}
+            Get notified when released{isCard ? " (required)" : ""}
           </p>
           <div className="flex flex-col gap-2 w-full">
-            <div className="flex gap-1 w-full">
-              <Input
-                type="email"
-                placeholder="Your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`${isCard ? "h-7 text-xs" : ""} flex-1 bg-[#242731] border-gray-600 text-gray-200 w-full`}
-                onClick={(e) => e.stopPropagation()}
-                // Remove autoFocus to prevent automatic selection of the email input
-              />
+            <Input
+              type="email"
+              placeholder="Your organiser name"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={`${isCard ? "h-7 text-xs" : ""} bg-[#242731] border-gray-600 text-gray-200 w-full`}
+              onClick={(e) => e.stopPropagation()}
+              required
+            />
+            <div className="flex gap-2 w-full">
               <Button 
                 onClick={handleCancelEmailInput}
                 size="sm"
-                variant="ghost"
-                className="px-1"
+                variant="outline"
+                className={`${isCard ? "h-7 text-xs" : ""} flex-1`}
               >
-                <X size={16} />
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleEmailSubmit}
+                disabled={!isEmailValid}
+                size="sm"
+                className={`flex-1 bg-purple-500 hover:bg-purple-700 text-white ${isCard ? "h-7 text-xs" : ""}`}
+              >
+                Upvote
               </Button>
             </div>
-            <Button 
-              onClick={handleEmailSubmit}
-              disabled={email !== '' && !isEmailValid}
-              size="sm"
-              className={`w-full bg-purple-500 hover:bg-purple-700 text-white ${isCard ? "h-7 text-xs" : ""}`}
-            >
-              Upvote
-            </Button>
           </div>
         </div>
       )}
