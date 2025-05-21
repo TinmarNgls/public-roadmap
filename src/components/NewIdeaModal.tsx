@@ -124,7 +124,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             variant="outline" 
             onClick={onClose}
             disabled={isSubmitting}
-            className="border-gray-700 bg-[#252830] text-gray-200 hover:bg-gray-700 hover:text-white"
+            className="bg-white/10 border-white/10 text-gray-200 hover:bg-white/10"
           >
             Cancel
           </Button>
