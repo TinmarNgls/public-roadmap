@@ -1,30 +1,95 @@
+
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
-import { initialProjects } from '../data/projects';
 import { useToast } from '@/hooks/use-toast';
 import KanbanBoard from '@/components/KanbanBoard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, PlusCircle } from 'lucide-react';
 import NewIdeaModal from '@/components/NewIdeaModal';
+import { fetchIdeas, toggleUpvote, addComment, createIdea } from '@/lib/supabase/api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const Index = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showNewIdeaModal, setShowNewIdeaModal] = useState(false);
   const [newIdeaId, setNewIdeaId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // Fetch ideas from Supabase
+  const { data: projects = [], isLoading: isLoadingProjects } = useQuery({
+    queryKey: ['projects'],
+    queryFn: fetchIdeas,
+  });
+
+  // Handle upvote mutation
+  const upvoteMutation = useMutation({
+    mutationFn: ({ id, email }: { id: string; email?: string }) => 
+      toggleUpvote(id, email),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+    },
+    onError: (error) => {
+      console.error('Error toggling upvote:', error);
+      toast({
+        title: "Error",
+        description: "Failed to process your vote. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Handle comment mutation
+  const commentMutation = useMutation({
+    mutationFn: ({ ideaId, author, content }: { ideaId: string; author: string; content: string }) => 
+      addComment(ideaId, author, content),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      toast({
+        title: "Comment added",
+        description: "Your comment has been posted successfully.",
+      });
+    },
+    onError: (error) => {
+      console.error('Error adding comment:', error);
+      toast({
+        title: "Error",
+        description: "Failed to post your comment. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Handle new idea mutation
+  const newIdeaMutation = useMutation({
+    mutationFn: ({ title, description, author }: { title: string; description: string; author: string }) => 
+      createIdea(title, description, author),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      setNewIdeaId(data.id);
+      toast({
+        title: "Idea submitted!",
+        description: "Thank you for your contribution.",
+      });
+      setShowNewIdeaModal(false);
+    },
+    onError: (error) => {
+      console.error('Error creating idea:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit your idea. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
 
   useEffect(() => {
-    // Initialize projects from mock data
-    // In a real application, this would be an API call
-    setProjects(initialProjects.map(project => ({
-      ...project,
-      userHasUpvoted: false
-    })));
-  }, []);
+    setIsLoading(isLoadingProjects);
+  }, [isLoadingProjects]);
 
   useEffect(() => {
     let result = [...projects];
@@ -43,84 +108,19 @@ const Index = () => {
   }, [projects, searchQuery]);
 
   const handleUpvote = (id: string, email?: string) => {
-    setProjects(projects.map(project => {
-      if (project.id === id) {
-        // If email is provided but we don't need to toggle the upvote
-        if (email && project.userHasUpvoted) {
-          // Just record the email notification without changing upvote status
-          return project;
-        }
-        
-        // Toggle upvote status
-        const userHasUpvoted = !project.userHasUpvoted;
-        return {
-          ...project,
-          upvotes: userHasUpvoted ? project.upvotes + 1 : project.upvotes - 1,
-          userHasUpvoted
-        };
-      }
-      return project;
-    }));
-    
-    if (email) {
-      toast({
-        title: "Thanks for your feedback!",
-        description: `We'll notify you at ${email} when this feature is released.`,
-      });
-    } else if (projects.find(p => p.id === id)?.userHasUpvoted === false) {
-      // Only show toast for initial upvote
-      toast({
-        title: "Thanks for your feedback!",
-        description: "Your vote has been recorded.",
-      });
-    }
+    upvoteMutation.mutate({ id, email });
   };
 
   const handleAddComment = (id: string, comment: Omit<Comment, 'id' | 'createdAt'>) => {
-    const newComment = {
-      ...comment,
-      id: `c${Date.now()}`,
-      createdAt: new Date().toISOString()
-    };
-    
-    setProjects(projects.map(project => {
-      if (project.id === id) {
-        return {
-          ...project,
-          comments: [...project.comments, newComment]
-        };
-      }
-      return project;
-    }));
-    
-    toast({
-      title: "Comment added",
-      description: "Your comment has been posted successfully.",
+    commentMutation.mutate({ 
+      ideaId: id, 
+      author: comment.author, 
+      content: comment.content 
     });
   };
 
   const handleNewIdeaSubmit = (title: string, description: string, author: string) => {
-    const id = `idea-${Date.now()}`;
-    const newProject: Project = {
-      id,
-      title,
-      description,
-      status: 'consideration',
-      upvotes: 1,
-      userHasUpvoted: true,
-      comments: [],
-      submittedAt: new Date().toISOString(),
-      submittedBy: author
-    };
-    
-    // Add the new idea to projects
-    setProjects([...projects, newProject]);
-    
-    // Set the ID to focus on after closing the modal
-    setNewIdeaId(id);
-    
-    // Close the modal
-    setShowNewIdeaModal(false);
+    newIdeaMutation.mutate({ title, description, author });
   };
 
   return (
@@ -152,7 +152,12 @@ const Index = () => {
           </Button>
         </div>
         
-        {filteredProjects.length > 0 ? (
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin h-8 w-8 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p>Loading ideas...</p>
+          </div>
+        ) : filteredProjects.length > 0 ? (
           <KanbanBoard 
             projects={filteredProjects} 
             onUpvote={handleUpvote} 
@@ -184,7 +189,8 @@ const Index = () => {
       <NewIdeaModal 
         open={showNewIdeaModal} 
         onClose={() => setShowNewIdeaModal(false)}
-        onSubmit={handleNewIdeaSubmit} 
+        onSubmit={handleNewIdeaSubmit}
+        isSubmitting={newIdeaMutation.isPending}
       />
     </div>
   );

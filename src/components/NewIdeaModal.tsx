@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,17 +17,18 @@ interface NewIdeaModalProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (title: string, description: string, author: string) => void;
+  isSubmitting?: boolean;
 }
 
 const NewIdeaModal: React.FC<NewIdeaModalProps> = ({ 
   open, 
   onClose,
-  onSubmit 
+  onSubmit,
+  isSubmitting = false
 }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [author, setAuthor] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const { toast } = useToast();
   
@@ -44,8 +44,6 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
       return;
     }
     
-    setIsSubmitting(true);
-    
     try {
       onSubmit(title.trim(), description.trim(), author.trim());
       
@@ -53,19 +51,12 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
       setTitle('');
       setDescription('');
       setAuthor('');
-      
-      toast({
-        title: "Idea submitted!",
-        description: "Thank you for your contribution.",
-      });
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to submit your idea. Please try again.",
         variant: "destructive"
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -136,7 +127,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
               disabled={isSubmitting}
               className="bg-purple-500 hover:bg-purple-600"
             >
-              Submit
+              {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
           </DialogFooter>
         </form>
