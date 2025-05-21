@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronUp, ChevronDown, X } from 'lucide-react';
+import { ChevronUp, X } from 'lucide-react';
 
 interface UpvoteButtonProps {
   upvotes: number;
@@ -45,12 +45,6 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
       setShowEmailField(true);
     }
   };
-
-  const handleSkipEmail = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onUpvote();
-    setShowEmailField(false);
-  };
   
   const handleEmailSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -84,7 +78,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
         </Button>
       ) : (
         <div className="flex flex-col gap-2 mt-1 w-full">
-          <p className={`${isCard ? "text-xs" : "text-sm"} font-medium text-white bg-gray-700 px-2 py-1 rounded-t-md mt-2 border-t border-x border-gray-600 w-full text-center`}>
+          <p className={`${isCard ? "text-xs" : "text-sm"} font-medium text-gray-300 w-full`}>
             Get notified when released{isCard ? "" : " (optional)"}
           </p>
           <div className="flex flex-col gap-2 w-full">
@@ -107,23 +101,14 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 <X size={16} />
               </Button>
             </div>
-            <div className="flex gap-2 w-full">
-              <Button 
-                onClick={handleSkipEmail}
-                size="sm"
-                className={`flex-1 bg-[#2a2d36] text-gray-300 hover:bg-gray-700 ${isCard ? "h-7 text-xs" : ""}`}
-              >
-                Skip
-              </Button>
-              <Button 
-                onClick={handleEmailSubmit}
-                disabled={email !== '' && !isEmailValid}
-                size="sm"
-                className={`flex-1 bg-purple-500 hover:bg-purple-700 text-white ${isCard ? "h-7 text-xs" : ""}`}
-              >
-                Submit
-              </Button>
-            </div>
+            <Button 
+              onClick={handleEmailSubmit}
+              disabled={email !== '' && !isEmailValid}
+              size="sm"
+              className={`w-full bg-purple-500 hover:bg-purple-700 text-white ${isCard ? "h-7 text-xs" : ""}`}
+            >
+              Submit
+            </Button>
           </div>
         </div>
       )}
