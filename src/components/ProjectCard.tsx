@@ -43,6 +43,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     }
   }, [isFocused]);
 
+  // Hide email input if user cancels upvote
+  useEffect(() => {
+    if (!project.userHasUpvoted) {
+      setShowEmailInput(false);
+    }
+  }, [project.userHasUpvoted]);
+
   const handleDialogChange = (open: boolean) => {
     setIsDialogOpen(open);
     if (!open && onDialogClose) {
@@ -81,13 +88,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   const handleUpvote = () => {
-    // If user already upvoted or email is provided, process the upvote
-    if (project.userHasUpvoted || email) {
-      onUpvote(project.id, email);
-      setShowEmailInput(false);
-      setEmail('');
-    } else {
-      // Show email input instead of upvoting immediately
+    // Always process the upvote first, without an email
+    onUpvote(project.id);
+    
+    // Show email input only after upvoting (if not already shown)
+    if (project.userHasUpvoted === false) {
       setShowEmailInput(true);
     }
   };
@@ -128,9 +133,26 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <p className="text-xs text-gray-600 line-clamp-2 mb-3">{project.description}</p>
             
             <div className="flex flex-col items-end mt-2">
-              {/* Show email input before upvoting on the card view */}
-              {showEmailInput && !project.userHasUpvoted && (
-                <div className="w-full mb-2 flex flex-col gap-2">
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleUpvote();
+                }}
+                variant={project.userHasUpvoted ? "default" : "outline"}
+                size="sm"
+                className={`flex items-center gap-1 px-2 py-0 h-7 ${
+                  project.userHasUpvoted 
+                    ? "bg-purple-500 hover:bg-purple-600" 
+                    : "hover:bg-purple-500/10 hover:text-purple-500 hover:border-purple-500"
+                }`}
+              >
+                <ChevronUp size={14} className={project.userHasUpvoted ? "animate-pulse-once" : ""} />
+                <span className="text-xs">{project.upvotes}</span>
+              </Button>
+              
+              {/* Show email input AFTER upvoting on the card view */}
+              {project.userHasUpvoted && showEmailInput && (
+                <div className="w-full mt-2 flex flex-col gap-2">
                   <p className="text-xs text-gray-600">Get notified when released:</p>
                   <div className="flex gap-1">
                     <Input
@@ -155,19 +177,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   </div>
                 </div>
               )}
-              
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleUpvote();
-                }}
-                variant={project.userHasUpvoted ? "default" : "outline"}
-                size="sm"
-                className={`flex items-center gap-1 px-2 py-0 h-7 ${project.userHasUpvoted ? "" : "hover:bg-primary/10 hover:text-primary"}`}
-              >
-                <ChevronUp size={14} className={project.userHasUpvoted ? "animate-pulse-once" : ""} />
-                <span className="text-xs">{project.upvotes}</span>
-              </Button>
             </div>
           </div>
         </Card>
@@ -195,13 +204,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             onClick={handleUpvote}
             variant={project.userHasUpvoted ? "default" : "outline"}
             size="sm"
-            className="flex items-center gap-1"
+            className={`flex items-center gap-1 ${
+              project.userHasUpvoted 
+                ? "bg-purple-500 hover:bg-purple-600" 
+                : "hover:bg-purple-500/10 hover:text-purple-500 hover:border-purple-500"
+            }`}
           >
             <ChevronUp size={16} className={project.userHasUpvoted ? "animate-pulse-once" : ""} />
             <span>{project.upvotes} upvotes</span>
           </Button>
           
-          {/* Only show email input after user has upvoted AND we're showing the email input */}
+          {/* Only show email input after user has upvoted */}
           {project.userHasUpvoted && showEmailInput && (
             <div className="flex flex-col gap-3 mt-3">
               <p className="text-sm">Get notified when this feature is released (optional)</p>
