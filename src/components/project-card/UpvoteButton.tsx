@@ -37,6 +37,8 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
 
   const handleUpvoteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault(); // Prevent the default action which could trigger the card click
+    
     // If already upvoted, remove the upvote
     if (userHasUpvoted && onRemoveUpvote) {
       onRemoveUpvote();
@@ -53,6 +55,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   
   const handleEmailSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault(); // Prevent the default action
     
     if (email && onEmailSubmit) {
       // Use onEmailSubmit to handle the email case
@@ -69,11 +72,12 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
 
   const handleCancelEmailInput = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault(); // Prevent the default action
     setShowEmailField(false);
   };
 
   return (
-    <div className={isCard ? "flex justify-end" : "w-full"}>
+    <div className={isCard ? "flex" : "w-full"}>
       {!showEmailField ? (
         <Button
           onClick={handleUpvoteClick}
@@ -88,10 +92,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
           <span className={isCard ? "text-xs" : ""}>{upvotes} votes</span>
         </Button>
       ) : (
-        <div className="flex flex-col gap-2 mt-1 w-full">
-          <p className={`${isCard ? "text-xs" : "text-sm"} font-medium text-gray-300 w-full`}>
-            Get notified when released{isCard ? " (required)" : ""}
-          </p>
+        <div className="flex flex-col gap-2 mt-1 w-full" onClick={e => e.stopPropagation()}>
           <div className="flex flex-col gap-2 w-full">
             <Input
               type="email"

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Project, Comment } from '../../types';
 import { Separator } from '@/components/ui/separator';
 import {
