@@ -16,4 +16,6 @@ export interface Project {
   upvotes: number;
   comments: Comment[];
   userHasUpvoted?: boolean;
+  submittedAt?: string;
+  submittedBy?: string;
 }

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -18,15 +18,34 @@ interface ProjectCardProps {
   project: Project;
   onUpvote: (id: string) => void;
   onAddComment: (id: string, comment: Omit<Comment, 'id' | 'createdAt'>) => void;
+  isFocused?: boolean;
+  onDialogClose?: () => void;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ 
   project, 
   onUpvote,
-  onAddComment
+  onAddComment,
+  isFocused = false,
+  onDialogClose
 }) => {
   const [comment, setComment] = useState('');
   const [author, setAuthor] = useState('');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  
+  // Open the dialog if the card is focused
+  useEffect(() => {
+    if (isFocused) {
+      setIsDialogOpen(true);
+    }
+  }, [isFocused]);
+
+  const handleDialogChange = (open: boolean) => {
+    setIsDialogOpen(open);
+    if (!open && onDialogClose) {
+      onDialogClose();
+    }
+  };
   
   const getStatusClass = (status: string) => {
     switch(status) {
@@ -75,10 +94,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   // Format submission date
-  const submittedAt = "May 2025"; // Placeholder for now, would come from project data
+  const submittedAt = project.submittedAt 
+    ? new Date(project.submittedAt).toLocaleDateString()
+    : "May 2025"; // Fallback for existing data
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
       <DialogTrigger asChild>
         <Card className="bg-white w-full hover:shadow-md transition-shadow cursor-pointer">
           <div className="p-4">
@@ -117,7 +138,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         
         <div className="flex justify-between items-center text-sm text-gray-500 mt-2 mb-4">
           <div>Submitted at: {submittedAt}</div>
-          <div>Submitted by: Shotgun Team</div>
+          <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
         </div>
         
         <div className="flex items-center gap-2 mb-4">

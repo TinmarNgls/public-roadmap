@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Project, Status } from '../types';
 import ProjectCard from './ProjectCard';
 import { Rocket, Wrench, Brain, Pencil } from 'lucide-react';
@@ -8,9 +8,17 @@ interface KanbanBoardProps {
   projects: Project[];
   onUpvote: (id: string) => void;
   onAddComment: (id: string, comment: Omit<import('../types').Comment, 'id' | 'createdAt'>) => void;
+  focusProjectId?: string | null;
+  clearFocusProjectId?: () => void;
 }
 
-const KanbanBoard: React.FC<KanbanBoardProps> = ({ projects, onUpvote, onAddComment }) => {
+const KanbanBoard: React.FC<KanbanBoardProps> = ({ 
+  projects, 
+  onUpvote, 
+  onAddComment,
+  focusProjectId,
+  clearFocusProjectId
+}) => {
   // Group projects by their status
   const groupedProjects = projects.reduce((acc, project) => {
     if (!acc[project.status]) {
@@ -75,6 +83,8 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ projects, onUpvote, onAddComm
                   project={project}
                   onUpvote={onUpvote}
                   onAddComment={onAddComment}
+                  isFocused={project.id === focusProjectId}
+                  onDialogClose={clearFocusProjectId}
                 />
               ))
             ) : (

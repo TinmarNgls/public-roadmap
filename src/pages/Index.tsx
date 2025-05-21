@@ -1,15 +1,20 @@
+
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { initialProjects } from '../data/projects';
 import { useToast } from '@/hooks/use-toast';
 import KanbanBoard from '@/components/KanbanBoard';
 import { Input } from '@/components/ui/input';
-import { MessageCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { MessageCircle, PlusCircle } from 'lucide-react';
+import NewIdeaModal from '@/components/NewIdeaModal';
 
 const Index = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showNewIdeaModal, setShowNewIdeaModal] = useState(false);
+  const [newIdeaId, setNewIdeaId] = useState<string | null>(null);
   
   const { toast } = useToast();
 
@@ -80,6 +85,30 @@ const Index = () => {
     });
   };
 
+  const handleNewIdeaSubmit = (title: string, description: string, author: string) => {
+    const id = `idea-${Date.now()}`;
+    const newProject: Project = {
+      id,
+      title,
+      description,
+      status: 'consideration',
+      upvotes: 1,
+      userHasUpvoted: true,
+      comments: [],
+      submittedAt: new Date().toISOString(),
+      submittedBy: author
+    };
+    
+    // Add the new idea to projects
+    setProjects([...projects, newProject]);
+    
+    // Set the ID to focus on after closing the modal
+    setNewIdeaId(id);
+    
+    // Close the modal
+    setShowNewIdeaModal(false);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <main className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -92,7 +121,7 @@ const Index = () => {
           </p>
         </div>
         
-        <div className="mb-6">
+        <div className="flex flex-col sm:flex-row gap-4 items-start mb-6">
           <Input
             type="search"
             placeholder="Search features or ideas..."
@@ -100,13 +129,22 @@ const Index = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-md"
           />
+          <Button 
+            onClick={() => setShowNewIdeaModal(true)}
+            className="flex-shrink-0"
+          >
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Submit a new idea
+          </Button>
         </div>
         
         {filteredProjects.length > 0 ? (
           <KanbanBoard 
             projects={filteredProjects} 
             onUpvote={handleUpvote} 
-            onAddComment={handleAddComment} 
+            onAddComment={handleAddComment}
+            focusProjectId={newIdeaId}
+            clearFocusProjectId={() => setNewIdeaId(null)}
           />
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow">
@@ -128,6 +166,12 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <NewIdeaModal 
+        open={showNewIdeaModal} 
+        onClose={() => setShowNewIdeaModal(false)}
+        onSubmit={handleNewIdeaSubmit} 
+      />
     </div>
   );
 };
