@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { initialProjects } from '../data/projects';
@@ -96,7 +95,7 @@ const Index = () => {
         <div className="mb-6">
           <Input
             type="search"
-            placeholder="Search features..."
+            placeholder="Search features or ideas..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-md"
