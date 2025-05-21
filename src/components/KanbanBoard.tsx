@@ -6,7 +6,8 @@ import { Rocket, Wrench, Brain, Pencil } from 'lucide-react';
 
 interface KanbanBoardProps {
   projects: Project[];
-  onUpvote: (id: string) => void;
+  onUpvote: (id: string, email?: string) => void;
+  onRemoveUpvote: (id: string) => void;
   onAddComment: (id: string, comment: Omit<import('../types').Comment, 'id' | 'createdAt'>) => void;
   focusProjectId?: string | null;
   clearFocusProjectId?: () => void;
@@ -14,7 +15,8 @@ interface KanbanBoardProps {
 
 const KanbanBoard: React.FC<KanbanBoardProps> = ({ 
   projects, 
-  onUpvote, 
+  onUpvote,
+  onRemoveUpvote,
   onAddComment,
   focusProjectId,
   clearFocusProjectId
@@ -82,6 +84,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
                   key={project.id}
                   project={project}
                   onUpvote={onUpvote}
+                  onRemoveUpvote={onRemoveUpvote}
                   onAddComment={onAddComment}
                   isFocused={project.id === focusProjectId}
                   onDialogClose={clearFocusProjectId}
