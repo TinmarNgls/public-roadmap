@@ -84,7 +84,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     // Always upvote first
     onUpvote(project.id);
     
-    // Then show email input if user hasn't upvoted before
+    // Only show email input if the user hasn't upvoted before, and we just made them upvote
     if (!project.userHasUpvoted) {
       setShowEmailInput(true);
     }
@@ -173,7 +173,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <span>{project.upvotes} upvotes</span>
           </Button>
           
-          {showEmailInput && (
+          {/* Only show email input after user has upvoted AND we're showing the email input */}
+          {project.userHasUpvoted && showEmailInput && (
             <div className="flex flex-col gap-3 mt-3">
               <p className="text-sm">Get notified when this feature is released (optional)</p>
               <div className="flex gap-2">
