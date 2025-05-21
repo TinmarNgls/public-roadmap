@@ -44,7 +44,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, onCancel }) 
               type="button"
               onClick={onCancel}
               variant="outline"
-              className="flex-1 border-gray-700 text-gray-200 hover:bg-gray-700"
+              className="flex-1 border-gray-700 bg-[#252830] text-gray-200 hover:bg-gray-700 hover:text-white"
             >
               Cancel
             </Button>
