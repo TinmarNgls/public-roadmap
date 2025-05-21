@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Rocket, Wrench, Brain, Pencil } from 'lucide-react';
+import { Rocket, Wrench, Eye, Pencil } from 'lucide-react';
 
 type FilterOption = 'all' | 'released' | 'ongoing' | 'consideration' | 'backlog';
 
@@ -47,7 +47,7 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
         onClick={() => onFilterChange('consideration')}
         className={activeFilter === 'consideration' ? 'bg-purple-500 hover:bg-purple-600' : ''}
       >
-        <Brain size={16} className="mr-1" />
+        <Eye size={16} className="mr-1" />
         Consideration
       </Button>
       <Button

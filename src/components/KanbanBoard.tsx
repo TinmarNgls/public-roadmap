@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Project, Status } from '../types';
 import ProjectCard from './ProjectCard';
-import { Rocket, Wrench, Brain, Pencil } from 'lucide-react';
+import { Rocket, Wrench, Eye, Pencil } from 'lucide-react';
 
 interface KanbanBoardProps {
   projects: Project[];
@@ -52,7 +52,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
     { 
       id: 'consideration', 
       title: 'Under Consideration', 
-      icon: <Brain size={18} />, 
+      icon: <Eye size={18} />, 
       colorClass: 'border-l-4 border-l-purple-500 bg-[#1c1f26]' 
     },
     { 
