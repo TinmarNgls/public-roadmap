@@ -2,14 +2,13 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-// Try to get environment variables, otherwise use development fallbacks
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-supabase-project-url.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
+// Use the Supabase project credentials
+const supabaseUrl = "https://dhcgcgovgjxsgmtkimye.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoY2djZ292Z2p4c2dtdGtpbXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3NTYwODUsImV4cCI6MjA2MzMzMjA4NX0.ec8oTIO_9X4veDY8kLI2A-8Cnnhm3JtTWo8MKz4E4HU";
 
-// For development, if no credentials are available, use a mock client
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
-// Log a helpful message in development instead of error
-if (import.meta.env.DEV && (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY)) {
-  console.warn('⚠️ Using placeholder Supabase credentials. For real data, configure your .env with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
+// Log connection status in development
+if (import.meta.env.DEV) {
+  console.info('✅ Supabase client initialized with project credentials');
 }

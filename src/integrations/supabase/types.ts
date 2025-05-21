@@ -9,7 +9,97 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      comments: {
+        Row: {
+          comment: string
+          created_at: string | null
+          created_by: string
+          id: string
+          idea_id: string
+        }
+        Insert: {
+          comment: string
+          created_at?: string | null
+          created_by: string
+          id?: string
+          idea_id: string
+        }
+        Update: {
+          comment?: string
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          idea_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_idea_id_fkey"
+            columns: ["idea_id"]
+            isOneToOne: false
+            referencedRelation: "ideas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ideas: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          description: string
+          id: string
+          status: string
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by: string
+          description: string
+          id?: string
+          status: string
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          description?: string
+          id?: string
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      upvotes: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          email: string | null
+          id: string
+          idea_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          idea_id: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          idea_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "upvotes_idea_id_fkey"
+            columns: ["idea_id"]
+            isOneToOne: false
+            referencedRelation: "ideas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
