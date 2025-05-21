@@ -97,11 +97,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     setEmail('');
   };
 
-  const handleSkipEmail = () => {
-    setShowEmailInput(false);
-    setEmail('');
-  };
-
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (comment.trim() && author.trim()) {
@@ -118,6 +113,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const submittedAt = project.submittedAt 
     ? new Date(project.submittedAt).toLocaleDateString()
     : "May 2025"; // Fallback for existing data
+
+  // Check if email contains @ for validation
+  const isEmailValid = email.includes('@');
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
@@ -185,13 +183,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1"
                 />
-                <Button onClick={handleEmailSubmit} disabled={!email}>
+                <Button 
+                  onClick={handleEmailSubmit} 
+                  disabled={!isEmailValid}
+                  variant="secondary"
+                >
                   Submit
                 </Button>
               </div>
-              <Button variant="ghost" size="sm" className="self-end" onClick={handleSkipEmail}>
-                Skip
-              </Button>
             </div>
           )}
         </div>
