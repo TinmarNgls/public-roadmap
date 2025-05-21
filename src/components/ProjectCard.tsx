@@ -81,24 +81,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   const handleUpvote = () => {
+    // Always upvote first
+    onUpvote(project.id);
+    
+    // Then show email input if user hasn't upvoted before
     if (!project.userHasUpvoted) {
-      // Only show email input when user is upvoting for the first time
       setShowEmailInput(true);
-    } else {
-      // If user has already upvoted, just toggle the upvote
-      onUpvote(project.id);
-      setShowEmailInput(false);
     }
   };
 
   const handleEmailSubmit = () => {
+    // Update with email notification
     onUpvote(project.id, email);
     setShowEmailInput(false);
     setEmail('');
   };
 
   const handleSkipEmail = () => {
-    onUpvote(project.id);
     setShowEmailInput(false);
     setEmail('');
   };
@@ -163,38 +162,38 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
         </div>
         
-        {showEmailInput ? (
-          <div className="flex flex-col gap-3 mb-4">
-            <p className="text-sm">Get notified when this feature is released (optional)</p>
-            <div className="flex gap-2">
-              <Input
-                type="email"
-                placeholder="Your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1"
-              />
-              <Button onClick={handleEmailSubmit} disabled={!email && !project.userHasUpvoted}>
-                {project.userHasUpvoted ? "Update" : "Upvote"}
+        <div className="mb-4">
+          <Button
+            onClick={handleUpvote}
+            variant={project.userHasUpvoted ? "default" : "outline"}
+            size="sm"
+            className="flex items-center gap-1"
+          >
+            <ChevronUp size={16} className={project.userHasUpvoted ? "animate-pulse-once" : ""} />
+            <span>{project.upvotes} upvotes</span>
+          </Button>
+          
+          {showEmailInput && (
+            <div className="flex flex-col gap-3 mt-3">
+              <p className="text-sm">Get notified when this feature is released (optional)</p>
+              <div className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="Your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1"
+                />
+                <Button onClick={handleEmailSubmit} disabled={!email}>
+                  Submit
+                </Button>
+              </div>
+              <Button variant="ghost" size="sm" className="self-end" onClick={handleSkipEmail}>
+                Skip
               </Button>
             </div>
-            <Button variant="ghost" size="sm" className="self-end" onClick={handleSkipEmail}>
-              Skip
-            </Button>
-          </div>
-        ) : (
-          <div className="flex items-center gap-2 mb-4">
-            <Button
-              onClick={handleUpvote}
-              variant={project.userHasUpvoted ? "default" : "outline"}
-              size="sm"
-              className="flex items-center gap-1"
-            >
-              <ChevronUp size={16} className={project.userHasUpvoted ? "animate-pulse-once" : ""} />
-              <span>{project.upvotes} upvotes</span>
-            </Button>
-          </div>
-        )}
+          )}
+        </div>
         
         <Separator className="my-2" />
         

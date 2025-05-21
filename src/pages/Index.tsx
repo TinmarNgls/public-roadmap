@@ -45,6 +45,15 @@ const Index = () => {
   const handleUpvote = (id: string, email?: string) => {
     setProjects(projects.map(project => {
       if (project.id === id) {
+        // If user has already upvoted and is providing an email, don't toggle the upvote
+        // Just associate the email with the existing upvote
+        if (project.userHasUpvoted && email) {
+          return {
+            ...project
+          };
+        }
+        
+        // Otherwise toggle the upvote status
         const userHasUpvoted = !project.userHasUpvoted;
         return {
           ...project,
@@ -60,7 +69,8 @@ const Index = () => {
         title: "Thanks for your feedback!",
         description: `We'll notify you at ${email} when this feature is released.`,
       });
-    } else {
+    } else if (!email && projects.find(p => p.id === id)?.userHasUpvoted === false) {
+      // Only show toast for initial upvote
       toast({
         title: "Thanks for your feedback!",
         description: "Your vote has been recorded.",
