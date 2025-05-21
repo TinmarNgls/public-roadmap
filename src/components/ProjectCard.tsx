@@ -153,7 +153,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </Button>
         </div>
         
-        <Separator className="my-4" />
+        <Separator className="my-2" />
         
         <div className="mt-4">
           <h4 className="font-medium mb-2">Comments ({project.comments.length})</h4>
