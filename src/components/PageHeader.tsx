@@ -1,7 +1,7 @@
 import React from 'react';
 const PageHeader: React.FC = () => {
   return <div className="mb-16 py-0">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-24">
         <div>
           <h2 className="text-3xl font-bold text-gray-100 mb-2">
             What We're Building (Together)
