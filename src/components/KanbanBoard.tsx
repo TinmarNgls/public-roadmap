@@ -47,7 +47,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
     id: 'next_up',
     title: 'Next Up',
     icon: <Eye size={18} />,
-    colorClass: 'border-l-4 border-l-purple-500 bg-[#383b3e]'
+    colorClass: 'border-l-4 border-l-yellow-500 bg-[#383b3e]'
   }, {
     id: 'submitted',
     title: 'Submitted',
