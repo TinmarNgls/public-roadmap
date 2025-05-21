@@ -21,14 +21,14 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
-      <h4 className="font-medium mb-2">Add a comment</h4>
+      <h4 className="font-medium mb-2 text-gray-200">Add a comment</h4>
       <div className="mb-3">
         <input
           type="text"
           placeholder="Your name or organisation"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-          className="w-full p-2 border rounded text-sm"
+          className="w-full p-2 border border-gray-700 rounded text-sm bg-[#1e2029] text-gray-200 placeholder:text-gray-500"
           required
         />
       </div>
@@ -37,7 +37,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
           placeholder="Your comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="w-full p-2 border rounded text-sm"
+          className="w-full p-2 border border-gray-700 rounded text-sm bg-[#1e2029] text-gray-200 placeholder:text-gray-500"
           rows={3}
           required
         ></textarea>
