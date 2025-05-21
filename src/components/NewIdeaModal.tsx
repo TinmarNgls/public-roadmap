@@ -4,6 +4,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Dialog,
   DialogContent,
@@ -62,18 +63,18 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="sm:max-w-md">
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>Submit a new idea</DialogTitle>
-            <DialogDescription>
-              Have a brilliant idea for Shotgun? Let's hear it!
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
+      <DialogContent className="sm:max-w-xl bg-[#1a1c23] border border-gray-800 text-gray-200">
+        <DialogHeader>
+          <DialogTitle className="text-xl text-gray-100">Submit a new idea</DialogTitle>
+          <DialogDescription className="text-sm text-gray-400">
+            Have a brilliant idea for Shotgun? Let's hear it!
+          </DialogDescription>
+        </DialogHeader>
+        
+        <ScrollArea className="max-h-[75vh]">
+          <form onSubmit={handleSubmit} className="space-y-4 py-2">
             <div className="space-y-2">
-              <label htmlFor="title" className="text-sm font-medium">
+              <label htmlFor="title" className="text-sm font-medium text-gray-300">
                 Idea title*
               </label>
               <Input
@@ -82,11 +83,12 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="A short, descriptive title"
                 required
+                className="bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500"
               />
             </div>
             
             <div className="space-y-2">
-              <label htmlFor="description" className="text-sm font-medium">
+              <label htmlFor="description" className="text-sm font-medium text-gray-300">
                 Short description*
               </label>
               <Textarea
@@ -96,11 +98,12 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
                 placeholder="Explain your idea in a few sentences"
                 rows={4}
                 required
+                className="bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500"
               />
             </div>
             
             <div className="space-y-2">
-              <label htmlFor="author" className="text-sm font-medium">
+              <label htmlFor="author" className="text-sm font-medium text-gray-300">
                 Organiser name or organisation*
               </label>
               <Input
@@ -109,28 +112,31 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
                 onChange={(e) => setAuthor(e.target.value)}
                 placeholder="Your name or organisation"
                 required
+                className="bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500"
               />
             </div>
-          </div>
-          
-          <DialogFooter>
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={onClose}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </Button>
-            <Button 
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-purple-500 hover:bg-purple-600"
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </Button>
-          </DialogFooter>
-        </form>
+          </form>
+        </ScrollArea>
+        
+        <DialogFooter>
+          <Button 
+            type="button" 
+            variant="outline" 
+            onClick={onClose}
+            disabled={isSubmitting}
+            className="border-gray-700 bg-[#252830] text-gray-200 hover:bg-gray-700 hover:text-white"
+          >
+            Cancel
+          </Button>
+          <Button 
+            type="submit"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            className="bg-purple-500 hover:bg-purple-600 text-white"
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
