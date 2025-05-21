@@ -87,7 +87,7 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
                 onClick={toggleCommentForm}
                 variant="outline"
                 size="sm"
-                className="flex items-center gap-1 border-gray-700 text-gray-200 hover:bg-gray-700"
+                className="flex items-center gap-1 bg-white/10 border-white/10 text-gray-200 hover:bg-white/10"
               >
                 <MessageSquare size={16} />
                 Add a comment
