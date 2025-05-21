@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { Button } from '@/components/ui/button';
@@ -186,7 +185,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 <Button 
                   onClick={handleEmailSubmit} 
                   disabled={!isEmailValid}
-                  variant="secondary"
+                  className="bg-white text-black border border-black hover:bg-gray-100"
                 >
                   Submit
                 </Button>
