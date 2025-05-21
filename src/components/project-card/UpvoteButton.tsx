@@ -68,7 +68,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   };
 
   return (
-    <div className={isCard ? "flex flex-col items-end" : ""}>
+    <div className={isCard ? "flex flex-col w-full" : "w-full"}>
       {!showEmailField ? (
         <Button
           onClick={handleUpvoteClick}
@@ -84,17 +84,17 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
         </Button>
       ) : (
         <div className="flex flex-col gap-2 mt-1 w-full">
-          <p className={`${isCard ? "text-xs" : "text-sm"} font-medium text-white bg-gray-700 px-2 py-1 rounded-t-md mt-2 border-t border-x border-gray-600`}>
+          <p className={`${isCard ? "text-xs" : "text-sm"} font-medium text-white bg-gray-700 px-2 py-1 rounded-t-md mt-2 border-t border-x border-gray-600 w-full text-center`}>
             Get notified when released{isCard ? "" : " (optional)"}
           </p>
-          <div className="flex flex-col gap-2">
-            <div className="flex gap-1">
+          <div className="flex flex-col gap-2 w-full">
+            <div className="flex gap-1 w-full">
               <Input
                 type="email"
                 placeholder="Your email (optional)"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`${isCard ? "h-7 text-xs" : ""} flex-1 bg-[#242731] border-gray-600 text-gray-200`}
+                className={`${isCard ? "h-7 text-xs" : ""} flex-1 bg-[#242731] border-gray-600 text-gray-200 w-full`}
                 onClick={(e) => e.stopPropagation()}
                 autoFocus
               />
@@ -107,7 +107,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 <X size={16} />
               </Button>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full">
               <Button 
                 onClick={handleSkipEmail}
                 size="sm"
