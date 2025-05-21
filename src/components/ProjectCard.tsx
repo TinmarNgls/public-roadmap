@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ChevronUp, MessageCircle } from 'lucide-react';
+import { ChevronUp, MessageCircle, Mail } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogContent,
@@ -15,7 +17,7 @@ import {
 
 interface ProjectCardProps {
   project: Project;
-  onUpvote: (id: string) => void;
+  onUpvote: (id: string, email?: string) => void;
   onAddComment: (id: string, comment: Omit<Comment, 'id' | 'createdAt'>) => void;
   isFocused?: boolean;
   onDialogClose?: () => void;
@@ -31,6 +33,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [comment, setComment] = useState('');
   const [author, setAuthor] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [email, setEmail] = useState('');
   
   // Open the dialog if the card is focused
   useEffect(() => {
@@ -77,7 +81,26 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   const handleUpvote = () => {
+    if (!project.userHasUpvoted) {
+      // Only show email input when user is upvoting for the first time
+      setShowEmailInput(true);
+    } else {
+      // If user has already upvoted, just toggle the upvote
+      onUpvote(project.id);
+      setShowEmailInput(false);
+    }
+  };
+
+  const handleEmailSubmit = () => {
+    onUpvote(project.id, email);
+    setShowEmailInput(false);
+    setEmail('');
+  };
+
+  const handleSkipEmail = () => {
     onUpvote(project.id);
+    setShowEmailInput(false);
+    setEmail('');
   };
 
   const handleSubmitComment = (e: React.FormEvent) => {
@@ -140,17 +163,38 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div>Submitted by: {project.submittedBy || "Shotgun Team"}</div>
         </div>
         
-        <div className="flex items-center gap-2 mb-4">
-          <Button
-            onClick={handleUpvote}
-            variant={project.userHasUpvoted ? "default" : "outline"}
-            size="sm"
-            className="flex items-center gap-1"
-          >
-            <ChevronUp size={16} className={project.userHasUpvoted ? "animate-pulse-once" : ""} />
-            <span>{project.upvotes} upvotes</span>
-          </Button>
-        </div>
+        {showEmailInput ? (
+          <div className="flex flex-col gap-3 mb-4">
+            <p className="text-sm">Get notified when this feature is released (optional)</p>
+            <div className="flex gap-2">
+              <Input
+                type="email"
+                placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1"
+              />
+              <Button onClick={handleEmailSubmit} disabled={!email && !project.userHasUpvoted}>
+                {project.userHasUpvoted ? "Update" : "Upvote"}
+              </Button>
+            </div>
+            <Button variant="ghost" size="sm" className="self-end" onClick={handleSkipEmail}>
+              Skip
+            </Button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 mb-4">
+            <Button
+              onClick={handleUpvote}
+              variant={project.userHasUpvoted ? "default" : "outline"}
+              size="sm"
+              className="flex items-center gap-1"
+            >
+              <ChevronUp size={16} className={project.userHasUpvoted ? "animate-pulse-once" : ""} />
+              <span>{project.upvotes} upvotes</span>
+            </Button>
+          </div>
+        )}
         
         <Separator className="my-2" />
         

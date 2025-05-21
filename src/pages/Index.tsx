@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Comment, Project } from '../types';
 import { initialProjects } from '../data/projects';
@@ -43,7 +42,7 @@ const Index = () => {
     setFilteredProjects(result);
   }, [projects, searchQuery]);
 
-  const handleUpvote = (id: string) => {
+  const handleUpvote = (id: string, email?: string) => {
     setProjects(projects.map(project => {
       if (project.id === id) {
         const userHasUpvoted = !project.userHasUpvoted;
@@ -56,10 +55,17 @@ const Index = () => {
       return project;
     }));
     
-    toast({
-      title: "Thanks for your feedback!",
-      description: "Your vote has been recorded.",
-    });
+    if (email) {
+      toast({
+        title: "Thanks for your feedback!",
+        description: `We'll notify you at ${email} when this feature is released.`,
+      });
+    } else {
+      toast({
+        title: "Thanks for your feedback!",
+        description: "Your vote has been recorded.",
+      });
+    }
   };
 
   const handleAddComment = (id: string, comment: Omit<Comment, 'id' | 'createdAt'>) => {
