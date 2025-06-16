@@ -54,7 +54,8 @@
     "thanks": "Merci pour votre vote ! 🚀",
     "thanksWithEmail": "Merci pour votre vote !",
     "thanksWithEmailSubtitle": "Nous vous préviendrons quand cela sera publié 🤗",
-    "emailPlaceholder": "Entrez votre email pour être notifié"
+    "emailPlaceholder": "Entrez votre email pour être notifié",
+    "organiserPlaceholder": "Nom de votre organisation"
   },
   "toast": {
     "commentAdded": "Commentaire ajouté",

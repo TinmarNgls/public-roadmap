@@ -53,7 +53,8 @@
     "thanks": "Thanks for upvoting! 🚀",
     "thanksWithEmail": "Thanks for upvoting!",
     "thanksWithEmailSubtitle": "We'll let you know when this is released 🤗",
-    "emailPlaceholder": "Enter your email to get notified"
+    "emailPlaceholder": "Enter your email to get notified",
+    "organiserPlaceholder": "Your organiser name"
   },
   "toast": {
     "commentAdded": "Comment added",

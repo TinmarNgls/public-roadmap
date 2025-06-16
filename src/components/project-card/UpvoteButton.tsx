@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ThumbsUp } from 'lucide-react';
@@ -27,6 +28,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
   const [showEmailField, setShowEmailField] = useState(false);
   const isEmailValid = email.trim() !== '';
   const { toast } = useToast();
+  const { t } = useTranslation();
   
   // Reset email field state when upvote status changes
   useEffect(() => {
@@ -101,7 +103,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
           <div className="flex flex-col gap-2 w-full">
             <Input
               type="email"
-              placeholder="Your organiser name"
+              placeholder={t('upvote.organiserPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={`${isCard ? "h-7 text-xs" : ""} bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500`}
