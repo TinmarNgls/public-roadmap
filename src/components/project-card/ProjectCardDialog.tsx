@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Project, Comment } from '../../types';
 import { Separator } from '@/components/ui/separator';
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -27,11 +28,12 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
 }) => {
   const [showCommentForm, setShowCommentForm] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleUpvote = () => {
     onUpvote(project.id);
     toast({
-      title: "Thanks for upvoting! 🚀"
+      title: t('upvote.thanks')
     });
   };
 
@@ -44,8 +46,8 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
   const handleEmailSubmit = (email: string) => {
     onUpvote(project.id, email);
     toast({
-      title: "Thanks for upvoting!",
-      description: "We'll let you know when this is released 🤗"
+      title: t('upvote.thanksWithEmail'),
+      description: t('upvote.thanksWithEmailSubtitle')
     });
   };
 
@@ -81,7 +83,7 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
         
         <div className="mt-4">
           <div className="flex justify-between items-center mb-3">
-            <h4 className="text-sm text-gray-100">Comments ({project.comments.length})</h4>
+            <h4 className="text-sm text-gray-100">{t('project.comments')} ({project.comments.length})</h4>
             {!showCommentForm && (
               <Button 
                 onClick={toggleCommentForm}
@@ -90,7 +92,7 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
                 className="flex items-center gap-1 bg-white/10 border-white/10 text-gray-200 hover:bg-white/10"
               >
                 <MessageSquare size={16} />
-                Add a comment
+                {t('project.addComment')}
               </Button>
             )}
           </div>

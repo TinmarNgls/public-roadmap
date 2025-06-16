@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,14 +33,15 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
   const [author, setAuthor] = useState('');
   
   const { toast } = useToast();
+  const { t } = useTranslation();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!title.trim() || !description.trim() || !author.trim()) {
       toast({
-        title: "Missing fields",
-        description: "Please fill in all the fields",
+        title: t('toast.missingFields'),
+        description: t('toast.missingFieldsDescription'),
         variant: "destructive"
       });
       return;
@@ -54,8 +56,8 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
       setAuthor('');
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to submit your idea. Please try again.",
+        title: t('toast.error'),
+        description: t('toast.errorDescription'),
         variant: "destructive"
       });
     }
@@ -65,9 +67,9 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="sm:max-w-xl bg-[#1a1c23] border border-gray-800 text-gray-200">
         <DialogHeader>
-          <DialogTitle className="text-xl text-gray-100">Submit a new idea</DialogTitle>
+          <DialogTitle className="text-xl text-gray-100">{t('modal.newIdea.title')}</DialogTitle>
           <DialogDescription className="text-sm text-gray-400">
-            Have a brilliant idea for Shotgun? Let's hear it!
+            {t('modal.newIdea.subtitle')}
           </DialogDescription>
         </DialogHeader>
         
@@ -75,13 +77,13 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
             <div className="space-y-2">
               <label htmlFor="title" className="text-sm font-medium text-gray-300">
-                Idea title
+                {t('modal.newIdea.titleLabel')}
               </label>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="A short, descriptive title"
+                placeholder={t('modal.newIdea.titlePlaceholder')}
                 required
                 className="bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500"
               />
@@ -89,13 +91,13 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             
             <div className="space-y-2">
               <label htmlFor="description" className="text-sm font-medium text-gray-300">
-                Short description
+                {t('modal.newIdea.descriptionLabel')}
               </label>
               <Textarea
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Explain your idea in a few sentences"
+                placeholder={t('modal.newIdea.descriptionPlaceholder')}
                 rows={4}
                 required
                 className="bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500"
@@ -104,13 +106,13 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             
             <div className="space-y-2">
               <label htmlFor="author" className="text-sm font-medium text-gray-300">
-                Organiser name or organisation
+                {t('modal.newIdea.authorLabel')}
               </label>
               <Input
                 id="author"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                placeholder="Your organisation name"
+                placeholder={t('modal.newIdea.authorPlaceholder')}
                 required
                 className="bg-[#252830] border-gray-700 text-gray-200 placeholder:text-gray-500"
               />
@@ -126,7 +128,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             disabled={isSubmitting}
             className="bg-white/10 border-white/10 text-gray-200 hover:bg-white/10"
           >
-            Cancel
+            {t('modal.newIdea.cancel')}
           </Button>
           <Button 
             type="submit"
@@ -134,7 +136,7 @@ const NewIdeaModal: React.FC<NewIdeaModalProps> = ({
             disabled={isSubmitting}
             className="bg-[#7D55CA] hover:bg-[#A581E0] text-white"
           >
-            {isSubmitting ? "Submitting..." : "Submit"}
+            {isSubmitting ? t('modal.newIdea.submitting') : t('modal.newIdea.submit')}
           </Button>
         </DialogFooter>
       </DialogContent>

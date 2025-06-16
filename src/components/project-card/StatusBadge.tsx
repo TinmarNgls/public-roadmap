@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { format, parseISO } from 'date-fns';
 
 interface StatusBadgeProps {
@@ -9,6 +10,8 @@ interface StatusBadgeProps {
 }
 
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, statusUpdatedAt, showUpdatedTime = false }) => {
+  const { t } = useTranslation();
+
   const getStatusClass = (status: string) => {
     switch(status) {
       case 'ongoing':
@@ -25,18 +28,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, statusUpdatedA
   };
   
   const getStatusText = (status: string) => {
-    switch(status) {
-      case 'ongoing':
-        return 'Ongoing';
-      case 'released':
-        return 'Released';
-      case 'next_up':
-        return 'Next Up';
-      case 'submitted':
-        return 'Submitted';
-      default:
-        return status;
-    }
+    return t(`status.${status}`);
   };
 
   // Format the status updated time if available

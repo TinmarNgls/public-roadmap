@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Comment } from '../../types';
 
 interface CommentListProps {
@@ -7,6 +8,8 @@ interface CommentListProps {
 }
 
 export const CommentList: React.FC<CommentListProps> = ({ comments }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="max-h-60 overflow-y-auto space-y-3 mb-4">
       {comments.map((comment) => (
@@ -23,7 +26,7 @@ export const CommentList: React.FC<CommentListProps> = ({ comments }) => {
       
       {comments.length === 0 && (
         <p className="text-sm text-gray-400 text-center py-2">
-          No comments yet. Be the first to comment!
+          {t('project.noComments')}
         </p>
       )}
     </div>

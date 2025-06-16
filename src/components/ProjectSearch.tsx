@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Plus } from 'lucide-react';
@@ -15,13 +16,15 @@ const ProjectSearch: React.FC<ProjectSearchProps> = ({
   onSearchChange,
   onNewIdeaClick
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center my-6">
       <div className="relative flex-1">
         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
         <Input
           type="text"
-          placeholder="Search ideas..."
+          placeholder={t('search.placeholder')}
           className="pl-8 bg-[#383b3e] border-gray-800 text-gray-200 placeholder:9b9d9e"
           value={searchQuery}
           onChange={onSearchChange}
@@ -32,7 +35,7 @@ const ProjectSearch: React.FC<ProjectSearchProps> = ({
         className="bg-[#7D55CA] hover:bg-[#A581E0] text-white"
       >
         <Plus className="mr-1 h-4 w-4" />
-        Submit a new idea
+        {t('search.newIdea')}
       </Button>
     </div>
   );
