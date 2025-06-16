@@ -108,6 +108,64 @@ export interface Database {
           created_at?: string
         }
       }
+      changelog_announcements: {
+        Row: {
+          id: string
+          date: string
+          title: string
+          subtitle?: string | null
+          published: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          date: string
+          title: string
+          subtitle?: string | null
+          published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          date?: string
+          title?: string
+          subtitle?: string | null
+          published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      changelog_updates: {
+        Row: {
+          id: string
+          announcement_id: string
+          text: string
+          link_url?: string | null
+          link_text?: string | null
+          sort_order: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          announcement_id: string
+          text: string
+          link_url?: string | null
+          link_text?: string | null
+          sort_order?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          announcement_id?: string
+          text?: string
+          link_url?: string | null
+          link_text?: string | null
+          sort_order?: number
+          created_at?: string
+        }
+      }
     }
   }
 }
