@@ -2,6 +2,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { format, parseISO } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import { ptBR } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale';
 
 interface StatusBadgeProps {
   status: string;
@@ -10,7 +13,7 @@ interface StatusBadgeProps {
 }
 
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, statusUpdatedAt, showUpdatedTime = false }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const getStatusClass = (status: string) => {
     switch(status) {
@@ -31,9 +34,23 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, statusUpdatedA
     return t(`status.${status}`);
   };
 
+  // Get the appropriate locale for date formatting
+  const getDateLocale = () => {
+    switch (i18n.language) {
+      case 'fr':
+        return fr;
+      case 'pt-BR':
+        return ptBR;
+      case 'pt-PT':
+        return ptBR; // Using ptBR for both Portuguese variants
+      default:
+        return enUS;
+    }
+  };
+
   // Format the status updated time if available
   const formattedTime = statusUpdatedAt && showUpdatedTime
-    ? format(parseISO(statusUpdatedAt), 'MMM d, yyyy')
+    ? format(parseISO(statusUpdatedAt), 'd MMM yyyy', { locale: getDateLocale() })
     : null;
 
   return (
@@ -42,7 +59,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, statusUpdatedA
         {getStatusText(status)}
       </span>
       {formattedTime && (
-        <span className="text-xs text-gray-400">since {formattedTime}</span>
+        <span className="text-xs text-gray-400">{t('status.since')} {formattedTime}</span>
       )}
     </div>
   );

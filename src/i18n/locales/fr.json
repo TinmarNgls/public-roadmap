@@ -14,7 +14,8 @@
     "next_up": "À venir",
     "submitted": "À l'étude",
     "consideration": "À l'étude",
-    "backlog": "En attente"
+    "backlog": "En attente",
+    "since": "depuis le"
   },
   "project": {
     "upvote": "Voter",
