@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -117,7 +116,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 variant="outline"
                 className={`${isCard ? "h-7 text-xs" : ""} flex-1 bg-white/10 border-white/10 text-gray-200 hover:bg-white/10`}
               >
-                Cancel
+                {t('upvote.cancel')}
               </Button>
               <Button 
                 onClick={handleEmailSubmit}
@@ -125,7 +124,7 @@ export const UpvoteButton: React.FC<UpvoteButtonProps> = ({
                 size="sm"
                 className={`flex-1 bg-[#7D55CA] hover:bg-[#A581E0] text-white ${isCard ? "h-7 text-xs" : ""}`}
               >
-                Upvote
+                {t('upvote.submit')}
               </Button>
             </div>
           </div>
