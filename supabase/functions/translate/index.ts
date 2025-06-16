@@ -16,7 +16,21 @@ serve(async (req) => {
   }
 
   try {
+    console.log('Translation request received');
+    
+    if (!openAIApiKey) {
+      console.error('OpenAI API key not found');
+      return new Response(
+        JSON.stringify({ error: 'OpenAI API key not configured' }),
+        { 
+          status: 500, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      );
+    }
+
     const { text, fromLanguage, toLanguage } = await req.json();
+    console.log(`Translating: "${text}" from ${fromLanguage} to ${toLanguage}`);
 
     if (!text || !fromLanguage || !toLanguage) {
       return new Response(
@@ -36,6 +50,7 @@ serve(async (req) => {
       );
     }
 
+    console.log('Calling OpenAI API...');
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -59,12 +74,13 @@ serve(async (req) => {
       }),
     });
 
-    const data = await response.json();
+    console.log('OpenAI response status:', response.status);
     
     if (!response.ok) {
-      console.error('OpenAI API error:', data);
+      const errorData = await response.text();
+      console.error('OpenAI API error:', errorData);
       return new Response(
-        JSON.stringify({ error: 'Translation service error' }),
+        JSON.stringify({ error: 'Translation service error', details: errorData }),
         { 
           status: 500, 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
@@ -72,7 +88,11 @@ serve(async (req) => {
       );
     }
 
+    const data = await response.json();
+    console.log('OpenAI response data:', data);
+    
     const translatedText = data.choices[0].message.content.trim();
+    console.log('Translated text:', translatedText);
 
     return new Response(
       JSON.stringify({ translatedText }),
@@ -81,7 +101,7 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error in translate function:', error);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ error: 'Internal server error', details: error.message }),
       { 
         status: 500, 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' } 

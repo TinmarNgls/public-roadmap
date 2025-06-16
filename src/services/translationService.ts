@@ -22,6 +22,11 @@ export class TranslationService {
       return text;
     }
 
+    // Skip translation for empty or very short text
+    if (!text || text.trim().length < 2) {
+      return text;
+    }
+
     const cacheKey = this.getCacheKey(text, fromLanguage, toLanguage);
     
     // Check cache first
@@ -30,10 +35,13 @@ export class TranslationService {
     }
 
     try {
+      console.log(`Translating: "${text}" from ${fromLanguage} to ${toLanguage}`);
+      
       const response = await fetch('https://dhcgcgovgjxsgmtkimye.supabase.co/functions/v1/translate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoY2djZ292Z2p4c2dtdGtpbXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ5ODEzNjQsImV4cCI6MjA1MDU1NzM2NH0.LmGKYMmUAmJNO9o4KJpbsqH4DvSCDn_jBNdNZZEgYaA`,
         },
         body: JSON.stringify({
           text,
@@ -42,12 +50,23 @@ export class TranslationService {
         }),
       });
 
+      console.log('Translation response status:', response.status);
+
       if (!response.ok) {
-        throw new Error('Translation failed');
+        const errorText = await response.text();
+        console.error('Translation API error:', errorText);
+        throw new Error(`Translation failed: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
+      console.log('Translation response data:', data);
+      
       const translatedText = data.translatedText;
+
+      if (!translatedText) {
+        console.error('No translated text in response:', data);
+        return text;
+      }
 
       // Cache the result
       this.cache.set(cacheKey, translatedText);
