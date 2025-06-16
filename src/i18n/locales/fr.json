@@ -2,17 +2,17 @@
 {
   "header": {
     "title": "Ce que nous construisons (ensemble)",
-    "subtitle": "Explorez ce qui arrive, votez pour les fonctionnalités, et dites-nous ce qui rendrait Shotgun encore meilleur pour vos événements"
+    "subtitle": "Découvrez les prochaines nouveautés, votez pour vos fonctionnalités préférées et partagez vos idées pour faire de Shotgun l'outil idéal"
   },
   "search": {
     "placeholder": "Rechercher des idées...",
-    "newIdea": "Soumettre une nouvelle idée"
+    "newIdea": "Soumettre une idée"
   },
   "status": {
     "released": "Récemment publié",
     "ongoing": "En cours",
     "next_up": "À venir",
-    "submitted": "Soumis",
+    "submitted": "À l'étude",
     "consideration": "À l'étude",
     "backlog": "En attente"
   },
@@ -34,7 +34,7 @@
       "titlePlaceholder": "Un titre court et descriptif",
       "descriptionLabel": "Description courte",
       "descriptionPlaceholder": "Expliquez votre idée en quelques phrases",
-      "authorLabel": "Nom de l'organisateur ou organisation",
+      "authorLabel": "Nom de l'organisateur",
       "authorPlaceholder": "Le nom de votre organisation",
       "cancel": "Annuler",
       "submit": "Soumettre",
