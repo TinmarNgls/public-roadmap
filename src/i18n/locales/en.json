@@ -4,6 +4,10 @@
     "title": "What We're Building (Together)",
     "subtitle": "Explore what's coming, vote on features, and let us know what would make Shotgun even better for your events"
   },
+  "changelog": {
+    "title": "What's New",
+    "subtitle": "Discover the latest product updates, feature releases, and improvements designed to enhance your experience—on both sides of the decks."
+  },
   "search": {
     "placeholder": "Search ideas...",
     "newIdea": "Submit new idea"

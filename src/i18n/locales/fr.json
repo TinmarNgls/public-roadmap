@@ -4,6 +4,10 @@
     "title": "Ensemble, faisons évoluer Shotgun",
     "subtitle": "Découvrez les prochaines nouveautés, votez pour vos fonctionnalités préférées et partagez vos idées pour faire de Shotgun l'outil idéal"
   },
+  "changelog": {
+    "title": "Quoi de Neuf?",
+    "subtitle": "Suivez les dernières mises à jour, nouvelles fonctionnalités et améliorations"
+  },
   "search": {
     "placeholder": "Rechercher des idées...",
     "newIdea": "Soumettre une idée"

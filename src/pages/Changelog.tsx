@@ -13,8 +13,8 @@ const Changelog = () => {
         <PageHeader />
         
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-100 mb-2">Changelog</h2>
-          <p className="text-gray-400">Recent updates and improvements to Shotgun</p>
+          <h2 className="text-3xl font-bold text-gray-100 mb-2">{t('changelog.title')}</h2>
+          <p className="text-gray-400">{t('changelog.subtitle')}</p>
         </div>
         
         <ChangelogDisplay />

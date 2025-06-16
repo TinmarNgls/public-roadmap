@@ -10,7 +10,7 @@ const PageHeader: React.FC = () => {
   const isRoadmapPage = location.pathname === '/';
   
   return (
-    <div className="mb-16 py-0">
+    <div className="mb-8 py-0">
       {/* Sticky Top Navigation Banner */}
       <div className="sticky top-0 bg-[#222529] z-50 flex justify-between items-center mb-8 pb-4 border-b border-gray-700">
         <div className="flex items-center gap-8">
@@ -32,7 +32,7 @@ const PageHeader: React.FC = () => {
                 : 'text-gray-300 hover:text-white'
             }`}
           >
-            Changelog
+            What's New
           </Link>
         </div>
         <div className="flex items-center gap-4">
