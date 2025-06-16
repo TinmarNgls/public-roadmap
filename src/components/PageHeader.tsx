@@ -6,8 +6,37 @@ import LanguageSelector from './LanguageSelector';
 const PageHeader: React.FC = () => {
   const { t } = useTranslation();
   
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   return (
     <div className="mb-16 py-0">
+      {/* Top Navigation Banner */}
+      <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-700">
+        <div className="flex items-center gap-8">
+          <button 
+            onClick={() => scrollToSection('roadmap')}
+            className="text-gray-300 hover:text-white transition-colors font-medium"
+          >
+            Roadmap
+          </button>
+          <button 
+            onClick={() => scrollToSection('changelog')}
+            className="text-gray-300 hover:text-white transition-colors font-medium"
+          >
+            Changelog
+          </button>
+        </div>
+        <div className="flex items-center gap-4">
+          <LanguageSelector />
+          <img src="/lovable-uploads/25759202-3791-4ca0-8fe6-e6da11f9aca1.png" alt="Shotgun Logo" className="h-5" />
+        </div>
+      </div>
+      
       {/* Mobile layout: Logo and language selector at top */}
       <div className="flex lg:hidden justify-between items-center mb-6">
         <img src="/lovable-uploads/25759202-3791-4ca0-8fe6-e6da11f9aca1.png" alt="Shotgun Logo" className="h-5" />
