@@ -41,13 +41,13 @@ const Index = () => {
           <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-6 bg-[#383b3e] border border-gray-700">
             <TabsTrigger 
               value="roadmap" 
-              className="data-[state=active]:bg-[#7D55CA] data-[state=active]:text-white text-gray-300"
+              className="data-[state=active]:bg-gray-600 data-[state=active]:text-white text-gray-300"
             >
               Roadmap
             </TabsTrigger>
             <TabsTrigger 
               value="changelog" 
-              className="data-[state=active]:bg-[#7D55CA] data-[state=active]:text-white text-gray-300"
+              className="data-[state=active]:bg-gray-600 data-[state=active]:text-white text-gray-300"
             >
               Changelog
             </TabsTrigger>
