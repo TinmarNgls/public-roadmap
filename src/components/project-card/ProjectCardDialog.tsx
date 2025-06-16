@@ -12,6 +12,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { MessageSquare } from 'lucide-react';
+import { useTranslatedContent } from '@/hooks/useTranslatedContent';
 
 interface ProjectCardDialogProps {
   project: Project;
@@ -29,6 +30,10 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
   const [showCommentForm, setShowCommentForm] = useState(false);
   const { toast } = useToast();
   const { t } = useTranslation();
+  
+  // Translate title and description
+  const { translatedText: translatedTitle } = useTranslatedContent(project.title, 'en');
+  const { translatedText: translatedDescription } = useTranslatedContent(project.description, 'en');
 
   const handleUpvote = () => {
     onUpvote(project.id);
@@ -68,9 +73,9 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
         <div className="flex items-center gap-2 mb-2">
           <StatusBadge status={project.status} statusUpdatedAt={project.statusUpdatedAt} showUpdatedTime={true} />
         </div>
-        <DialogTitle className="text-xl text-gray-100">{project.title}</DialogTitle>
+        <DialogTitle className="text-xl text-gray-100">{translatedTitle}</DialogTitle>
         <DialogDescription className="text-sm text-gray-100">
-          {project.description}
+          {translatedDescription}
         </DialogDescription>
       </DialogHeader>
       
