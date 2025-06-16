@@ -1,0 +1,75 @@
+
+{
+  "header": {
+    "title": "O que estamos construindo (juntos)",
+    "subtitle": "Explore o que está por vir, vote em recursos e nos diga o que tornaria o Shotgun ainda melhor para seus eventos"
+  },
+  "search": {
+    "placeholder": "Pesquisar ideias...",
+    "newIdea": "Enviar nova ideia"
+  },
+  "status": {
+    "released": "Lançado recentemente",
+    "ongoing": "Em andamento",
+    "next_up": "Próximo",
+    "submitted": "Enviado",
+    "consideration": "Em consideração",
+    "backlog": "Pendente"
+  },
+  "project": {
+    "upvote": "Votar",
+    "upvoted": "Votado",
+    "comments": "Comentários",
+    "addComment": "Adicionar comentário",
+    "noComments": "Ainda não há comentários. Seja o primeiro a comentar!",
+    "noProjects": "Nenhum projeto encontrado",
+    "noProjectsSubtitle": "Tente ajustar sua pesquisa para encontrar o que procura.",
+    "loadingIdeas": "Carregando ideias..."
+  },
+  "modal": {
+    "newIdea": {
+      "title": "Enviar uma nova ideia",
+      "subtitle": "Tem uma ideia brilhante para o Shotgun? Vamos ouvir!",
+      "titleLabel": "Título da ideia",
+      "titlePlaceholder": "Um título curto e descritivo",
+      "descriptionLabel": "Descrição curta",
+      "descriptionPlaceholder": "Explique sua ideia em algumas frases",
+      "authorLabel": "Nome do organizador ou organização",
+      "authorPlaceholder": "Nome da sua organização",
+      "cancel": "Cancelar",
+      "submit": "Enviar",
+      "submitting": "Enviando..."
+    },
+    "comment": {
+      "authorLabel": "Seu nome",
+      "authorPlaceholder": "Digite seu nome",
+      "contentLabel": "Comentário",
+      "contentPlaceholder": "Compartilhe seus pensamentos...",
+      "cancel": "Cancelar",
+      "submit": "Enviar"
+    }
+  },
+  "upvote": {
+    "thanks": "Obrigado pelo voto! 🚀",
+    "thanksWithEmail": "Obrigado pelo voto!",
+    "thanksWithEmailSubtitle": "Te avisaremos quando isso for lançado 🤗",
+    "emailPlaceholder": "Digite seu email para ser notificado"
+  },
+  "toast": {
+    "commentAdded": "Comentário adicionado",
+    "commentAddedDescription": "Seu comentário foi postado com sucesso.",
+    "ideaSubmitted": "Ideia enviada!",
+    "ideaSubmittedDescription": "Obrigado pela sua contribuição.",
+    "missingFields": "Campos obrigatórios",
+    "missingFieldsDescription": "Por favor, preencha todos os campos",
+    "error": "Erro",
+    "errorDescription": "Algo deu errado. Tente novamente."
+  },
+  "language": {
+    "selector": "Idioma",
+    "en": "English",
+    "fr": "Français",
+    "pt-BR": "Português (Brasil)",
+    "pt-PT": "Português (Portugal)"
+  }
+}

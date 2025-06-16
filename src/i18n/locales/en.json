@@ -1,0 +1,75 @@
+
+{
+  "header": {
+    "title": "What We're Building (Together)",
+    "subtitle": "Explore what's coming, vote on features, and let us know what would make Shotgun even better for your events"
+  },
+  "search": {
+    "placeholder": "Search ideas...",
+    "newIdea": "Submit new idea"
+  },
+  "status": {
+    "released": "Recently Released",
+    "ongoing": "Ongoing",
+    "next_up": "Next Up",
+    "submitted": "Submitted",
+    "consideration": "Under Consideration",
+    "backlog": "Backlog"
+  },
+  "project": {
+    "upvote": "Upvote",
+    "upvoted": "Upvoted",
+    "comments": "Comments",
+    "addComment": "Add a comment",
+    "noComments": "No comments yet. Be the first to comment!",
+    "noProjects": "No projects found",
+    "noProjectsSubtitle": "Try adjusting your search to find what you're looking for.",
+    "loadingIdeas": "Loading ideas..."
+  },
+  "modal": {
+    "newIdea": {
+      "title": "Submit a new idea",
+      "subtitle": "Have a brilliant idea for Shotgun? Let's hear it!",
+      "titleLabel": "Idea title",
+      "titlePlaceholder": "A short, descriptive title",
+      "descriptionLabel": "Short description",
+      "descriptionPlaceholder": "Explain your idea in a few sentences",
+      "authorLabel": "Organiser name or organisation",
+      "authorPlaceholder": "Your organisation name",
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "submitting": "Submitting..."
+    },
+    "comment": {
+      "authorLabel": "Your name",
+      "authorPlaceholder": "Enter your name",
+      "contentLabel": "Comment",
+      "contentPlaceholder": "Share your thoughts...",
+      "cancel": "Cancel",
+      "submit": "Submit"
+    }
+  },
+  "upvote": {
+    "thanks": "Thanks for upvoting! 🚀",
+    "thanksWithEmail": "Thanks for upvoting!",
+    "thanksWithEmailSubtitle": "We'll let you know when this is released 🤗",
+    "emailPlaceholder": "Enter your email to get notified"
+  },
+  "toast": {
+    "commentAdded": "Comment added",
+    "commentAddedDescription": "Your comment has been posted successfully.",
+    "ideaSubmitted": "Idea submitted!",
+    "ideaSubmittedDescription": "Thank you for your contribution.",
+    "missingFields": "Missing fields",
+    "missingFieldsDescription": "Please fill in all the fields",
+    "error": "Error",
+    "errorDescription": "Something went wrong. Please try again."
+  },
+  "language": {
+    "selector": "Language",
+    "en": "English",
+    "fr": "Français",
+    "pt-BR": "Português (Brasil)",
+    "pt-PT": "Português (Portugal)"
+  }
+}

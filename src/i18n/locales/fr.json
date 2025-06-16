@@ -1,0 +1,75 @@
+
+{
+  "header": {
+    "title": "Ce que nous construisons (ensemble)",
+    "subtitle": "Explorez ce qui arrive, votez pour les fonctionnalités, et dites-nous ce qui rendrait Shotgun encore meilleur pour vos événements"
+  },
+  "search": {
+    "placeholder": "Rechercher des idées...",
+    "newIdea": "Soumettre une nouvelle idée"
+  },
+  "status": {
+    "released": "Récemment publié",
+    "ongoing": "En cours",
+    "next_up": "À venir",
+    "submitted": "Soumis",
+    "consideration": "À l'étude",
+    "backlog": "En attente"
+  },
+  "project": {
+    "upvote": "Voter",
+    "upvoted": "Voté",
+    "comments": "Commentaires",
+    "addComment": "Ajouter un commentaire",
+    "noComments": "Pas encore de commentaires. Soyez le premier à commenter !",
+    "noProjects": "Aucun projet trouvé",
+    "noProjectsSubtitle": "Essayez d'ajuster votre recherche pour trouver ce que vous cherchez.",
+    "loadingIdeas": "Chargement des idées..."
+  },
+  "modal": {
+    "newIdea": {
+      "title": "Soumettre une nouvelle idée",
+      "subtitle": "Vous avez une idée brillante pour Shotgun ? Partagez-la !",
+      "titleLabel": "Titre de l'idée",
+      "titlePlaceholder": "Un titre court et descriptif",
+      "descriptionLabel": "Description courte",
+      "descriptionPlaceholder": "Expliquez votre idée en quelques phrases",
+      "authorLabel": "Nom de l'organisateur ou organisation",
+      "authorPlaceholder": "Le nom de votre organisation",
+      "cancel": "Annuler",
+      "submit": "Soumettre",
+      "submitting": "Envoi en cours..."
+    },
+    "comment": {
+      "authorLabel": "Votre nom",
+      "authorPlaceholder": "Entrez votre nom",
+      "contentLabel": "Commentaire",
+      "contentPlaceholder": "Partagez vos pensées...",
+      "cancel": "Annuler",
+      "submit": "Soumettre"
+    }
+  },
+  "upvote": {
+    "thanks": "Merci pour votre vote ! 🚀",
+    "thanksWithEmail": "Merci pour votre vote !",
+    "thanksWithEmailSubtitle": "Nous vous préviendrons quand cela sera publié 🤗",
+    "emailPlaceholder": "Entrez votre email pour être notifié"
+  },
+  "toast": {
+    "commentAdded": "Commentaire ajouté",
+    "commentAddedDescription": "Votre commentaire a été publié avec succès.",
+    "ideaSubmitted": "Idée soumise !",
+    "ideaSubmittedDescription": "Merci pour votre contribution.",
+    "missingFields": "Champs manquants",
+    "missingFieldsDescription": "Veuillez remplir tous les champs",
+    "error": "Erreur",
+    "errorDescription": "Quelque chose s'est mal passé. Veuillez réessayer."
+  },
+  "language": {
+    "selector": "Langue",
+    "en": "English",
+    "fr": "Français",
+    "pt-BR": "Português (Brasil)",
+    "pt-PT": "Português (Portugal)"
+  }
+}
