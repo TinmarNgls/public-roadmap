@@ -32,7 +32,7 @@ const PageHeader: React.FC = () => {
                 : 'text-gray-300 hover:text-white'
             }`}
           >
-            What's New
+            Changelog
           </Link>
         </div>
         <div className="flex items-center gap-4">
