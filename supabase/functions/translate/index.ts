@@ -29,12 +29,18 @@ serve(async (req) => {
       );
     }
 
-    const { text, fromLanguage, toLanguage } = await req.json();
-    console.log(`Translating: "${text}" from ${fromLanguage} to ${toLanguage}`);
+    const requestBody = await req.json();
+    
+    // Support both single text and batch translation
+    const isBatch = Array.isArray(requestBody.texts);
+    const texts = isBatch ? requestBody.texts : [requestBody.text];
+    const { fromLanguage, toLanguage } = requestBody;
 
-    if (!text || !fromLanguage || !toLanguage) {
+    console.log(`${isBatch ? 'Batch t' : 'T'}ranslating ${texts.length} text(s) from ${fromLanguage} to ${toLanguage}`);
+
+    if (!texts.length || !fromLanguage || !toLanguage) {
       return new Response(
-        JSON.stringify({ error: 'Missing required fields: text, fromLanguage, toLanguage' }),
+        JSON.stringify({ error: 'Missing required fields: text(s), fromLanguage, toLanguage' }),
         { 
           status: 400, 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
@@ -42,13 +48,26 @@ serve(async (req) => {
       );
     }
 
-    // If same language, return original text
+    // If same language, return original texts
     if (fromLanguage === toLanguage) {
+      const result = isBatch 
+        ? { translations: texts }
+        : { translatedText: texts[0] };
+      
       return new Response(
-        JSON.stringify({ translatedText: text }),
+        JSON.stringify(result),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    // Prepare the prompt for batch translation
+    const prompt = isBatch && texts.length > 1
+      ? `Translate each of the following texts from ${fromLanguage} to ${toLanguage}. Return only the translations, one per line, in the same order:
+
+${texts.map((text, index) => `${index + 1}. ${text}`).join('\n')}`
+      : `Translate the following text from ${fromLanguage} to ${toLanguage}. Only return the translated text, nothing else:
+
+${texts[0]}`;
 
     console.log('Calling OpenAI API...');
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -62,15 +81,18 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: `You are a professional translator. Translate the given text from ${fromLanguage} to ${toLanguage}. Only return the translated text, nothing else. Maintain the original tone and meaning. If the text is already in the target language, return it as is.`
+            content: `You are a professional translator. ${isBatch && texts.length > 1 
+              ? 'When translating multiple texts, return each translation on a separate line, numbered to match the input order. Maintain the original tone and meaning for each text.'
+              : 'Only return the translated text, nothing else. Maintain the original tone and meaning.'
+            }`
           },
           {
             role: 'user',
-            content: text
+            content: prompt
           }
         ],
         temperature: 0.1,
-        max_tokens: 1000,
+        max_tokens: Math.min(4000, texts.reduce((acc, text) => acc + text.length, 0) * 2),
       }),
     });
 
@@ -79,23 +101,46 @@ serve(async (req) => {
     if (!response.ok) {
       const errorData = await response.text();
       console.error('OpenAI API error:', errorData);
+      
+      // Return original texts as fallback
+      const fallbackResult = isBatch 
+        ? { translations: texts }
+        : { translatedText: texts[0] };
+      
       return new Response(
-        JSON.stringify({ error: 'Translation service error', details: errorData }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
+        JSON.stringify(fallbackResult),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const data = await response.json();
     console.log('OpenAI response data:', data);
     
-    const translatedText = data.choices[0].message.content.trim();
-    console.log('Translated text:', translatedText);
+    const translatedContent = data.choices[0].message.content.trim();
+    
+    let result;
+    if (isBatch && texts.length > 1) {
+      // Parse batch response - split by lines and clean up numbering
+      const translations = translatedContent
+        .split('\n')
+        .map(line => line.replace(/^\d+\.\s*/, '').trim())
+        .filter(line => line.length > 0);
+      
+      // Ensure we have the same number of translations as inputs
+      while (translations.length < texts.length) {
+        const missingIndex = translations.length;
+        translations.push(texts[missingIndex]);
+      }
+      
+      result = { translations: translations.slice(0, texts.length) };
+      console.log('Batch translations:', result.translations);
+    } else {
+      result = { translatedText: translatedContent };
+      console.log('Single translation:', result.translatedText);
+    }
 
     return new Response(
-      JSON.stringify({ translatedText }),
+      JSON.stringify(result),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {

@@ -71,6 +71,33 @@ export type Database = {
         }
         Relationships: []
       }
+      translations: {
+        Row: {
+          created_at: string
+          id: string
+          source_language: string
+          source_text: string
+          target_language: string
+          translated_text: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          source_language: string
+          source_text: string
+          target_language: string
+          translated_text: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          source_language?: string
+          source_text?: string
+          target_language?: string
+          translated_text?: string
+        }
+        Relationships: []
+      }
       upvotes: {
         Row: {
           created_at: string | null

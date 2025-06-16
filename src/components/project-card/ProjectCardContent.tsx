@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Project } from '../../types';
 import { UpvoteButton } from './UpvoteButton';
 import { useToast } from '@/hooks/use-toast';
-import { useTranslatedContent } from '@/hooks/useTranslatedContent';
+import { useEnhancedTranslation } from '@/hooks/useEnhancedTranslation';
 
 interface ProjectCardContentProps {
   project: Project;
@@ -21,9 +21,9 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
   const { toast } = useToast();
   const { t } = useTranslation();
   
-  // Translate title and description
-  const { translatedText: translatedTitle } = useTranslatedContent(project.title, 'en');
-  const { translatedText: translatedDescription } = useTranslatedContent(project.description, 'en');
+  // Use enhanced translation for better performance
+  const { translatedText: translatedTitle } = useEnhancedTranslation(project.title, 'en');
+  const { translatedText: translatedDescription } = useEnhancedTranslation(project.description, 'en');
 
   const handleUpvote = () => {
     onUpvote(project.id);
@@ -42,14 +42,23 @@ export const ProjectCardContent: React.FC<ProjectCardContentProps> = ({
     onUpvote(project.id, email);
   };
 
-  return <Card className="bg-[#2D3034] hover:bg-[#292C2F] border border-gray-800 w-full transition-colors cursor-pointer">
+  return (
+    <Card className="bg-[#2D3034] hover:bg-[#292C2F] border border-gray-800 w-full transition-colors cursor-pointer">
       <div className="p-3">
         <h3 className="text-sm font-medium line-clamp-2 mb-1 text-gray-100">{translatedTitle}</h3>
         <p className="text-xs text-gray-400 line-clamp-2 mb-6">{translatedDescription}</p>
         
         <div className="mt-2">
-          <UpvoteButton upvotes={project.upvotes} userHasUpvoted={project.userHasUpvoted} isCard={true} onUpvote={handleUpvote} onRemoveUpvote={handleRemoveUpvote} onEmailSubmit={handleEmailSubmit} />
+          <UpvoteButton 
+            upvotes={project.upvotes} 
+            userHasUpvoted={project.userHasUpvoted} 
+            isCard={true} 
+            onUpvote={handleUpvote} 
+            onRemoveUpvote={handleRemoveUpvote} 
+            onEmailSubmit={handleEmailSubmit} 
+          />
         </div>
       </div>
-    </Card>;
+    </Card>
+  );
 };

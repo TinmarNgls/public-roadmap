@@ -82,6 +82,32 @@ export interface Database {
           email?: string | null
         }
       }
+      translations: {
+        Row: {
+          id: string
+          source_text: string
+          source_language: string
+          target_language: string
+          translated_text: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          source_text: string
+          source_language: string
+          target_language: string
+          translated_text: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          source_text?: string
+          source_language?: string
+          target_language?: string
+          translated_text?: string
+          created_at?: string
+        }
+      }
     }
   }
 }

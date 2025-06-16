@@ -12,7 +12,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { MessageSquare } from 'lucide-react';
-import { useTranslatedContent } from '@/hooks/useTranslatedContent';
+import { useEnhancedTranslation } from '@/hooks/useEnhancedTranslation';
 
 interface ProjectCardDialogProps {
   project: Project;
@@ -31,9 +31,9 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
   const { toast } = useToast();
   const { t } = useTranslation();
   
-  // Translate title and description
-  const { translatedText: translatedTitle } = useTranslatedContent(project.title, 'en');
-  const { translatedText: translatedDescription } = useTranslatedContent(project.description, 'en');
+  // Use enhanced translation for better performance
+  const { translatedText: translatedTitle } = useEnhancedTranslation(project.title, 'en');
+  const { translatedText: translatedDescription } = useEnhancedTranslation(project.description, 'en');
 
   const handleUpvote = () => {
     onUpvote(project.id);
@@ -68,7 +68,8 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
     setShowCommentForm(!showCommentForm);
   };
 
-  return <DialogContent className="sm:max-w-xl bg-[#1a1c23] border border-gray-800 text-gray-200">
+  return (
+    <DialogContent className="sm:max-w-xl bg-[#1a1c23] border border-gray-800 text-gray-200">
       <DialogHeader>
         <div className="flex items-center gap-2 mb-2">
           <StatusBadge status={project.status} statusUpdatedAt={project.statusUpdatedAt} showUpdatedTime={true} />
@@ -81,7 +82,13 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
       
       <ScrollArea className="max-h-[75vh]">
         <div className="mb-4">
-          <UpvoteButton upvotes={project.upvotes} userHasUpvoted={project.userHasUpvoted} onUpvote={handleUpvote} onRemoveUpvote={handleRemoveUpvote} onEmailSubmit={handleEmailSubmit} />
+          <UpvoteButton 
+            upvotes={project.upvotes} 
+            userHasUpvoted={project.userHasUpvoted} 
+            onUpvote={handleUpvote} 
+            onRemoveUpvote={handleRemoveUpvote} 
+            onEmailSubmit={handleEmailSubmit} 
+          />
         </div>
         
         <Separator className="my-2 bg-gray-800" />
@@ -114,5 +121,6 @@ export const ProjectCardDialog: React.FC<ProjectCardDialogProps> = ({
           <CommentList comments={project.comments} />
         </div>
       </ScrollArea>
-    </DialogContent>;
+    </DialogContent>
+  );
 };
