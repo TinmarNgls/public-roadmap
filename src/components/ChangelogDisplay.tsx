@@ -44,9 +44,8 @@ const mockChangelogData: ChangelogEntry[] = [{
   items: ['Updated project status badges', 'Improved error handling', 'Enhanced accessibility features', 'Performance optimizations']
 }];
 const ChangelogDisplay: React.FC = () => {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const getTypeIcon = (type: string) => {
     switch (type) {
       case 'feature':
@@ -59,6 +58,7 @@ const ChangelogDisplay: React.FC = () => {
         return <CheckCircle className="h-4 w-4 text-gray-500" />;
     }
   };
+
   const getTypeLabel = (type: string) => {
     switch (type) {
       case 'feature':
@@ -71,6 +71,7 @@ const ChangelogDisplay: React.FC = () => {
         return 'Update';
     }
   };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -79,28 +80,37 @@ const ChangelogDisplay: React.FC = () => {
       day: 'numeric'
     });
   };
-  return <div className="max-w-4xl mx-auto">
-      
 
+  return (
+    <div className="max-w-4xl mx-auto">
       <div className="relative">
         {/* Timeline line */}
-        <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-700"></div>
+        <div className="absolute left-48 top-0 bottom-0 w-0.5 bg-gray-700"></div>
         
         <div className="space-y-8">
-          {mockChangelogData.map((entry, index) => <div key={entry.id} className="relative flex items-start">
+          {mockChangelogData.map((entry, index) => (
+            <div key={entry.id} className="relative flex items-start">
+              {/* Date on the left */}
+              <div className="w-44 flex-shrink-0 text-right pr-6">
+                <span className="text-gray-400 text-sm font-medium">
+                  {formatDate(entry.date)}
+                </span>
+              </div>
+              
               {/* Timeline dot */}
-              <div className="absolute left-6 w-4 h-4 bg-[#7D55CA] rounded-full border-4 border-[#222529] z-10"></div>
+              <div className="absolute left-[11.75rem] w-4 h-4 bg-[#7D55CA] rounded-full border-4 border-[#222529] z-10"></div>
               
               {/* Content */}
-              <div className="ml-16 bg-[#383b3e] rounded-lg p-6 border border-gray-700 w-full">
+              <div className="ml-8 bg-[#383b3e] rounded-lg p-6 border border-gray-700 flex-1">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    
-                    
-                  </div>
-                  <div className="flex items-center gap-1 text-sm text-gray-400">
-                    <Calendar className="h-4 w-4" />
-                    <span>{formatDate(entry.date)}</span>
+                    {getTypeIcon(entry.type)}
+                    <span className="text-sm font-medium text-gray-300 bg-gray-800 px-2 py-1 rounded">
+                      v{entry.version}
+                    </span>
+                    <span className="text-sm text-gray-400">
+                      {getTypeLabel(entry.type)}
+                    </span>
                   </div>
                 </div>
                 
@@ -108,15 +118,20 @@ const ChangelogDisplay: React.FC = () => {
                 <p className="text-gray-300 mb-4">{entry.description}</p>
                 
                 <ul className="space-y-2">
-                  {entry.items.map((item, itemIndex) => <li key={itemIndex} className="flex items-start gap-2 text-gray-300">
+                  {entry.items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="flex items-start gap-2 text-gray-300">
                       <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
                       <span className="text-sm">{item}</span>
-                    </li>)}
+                    </li>
+                  ))}
                 </ul>
               </div>
-            </div>)}
+            </div>
+          ))}
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default ChangelogDisplay;
