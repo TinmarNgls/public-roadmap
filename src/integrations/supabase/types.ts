@@ -9,6 +9,74 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      changelog_announcements: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          published: boolean
+          subtitle: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          published?: boolean
+          subtitle?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          published?: boolean
+          subtitle?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      changelog_updates: {
+        Row: {
+          announcement_id: string
+          created_at: string
+          id: string
+          link_text: string | null
+          link_url: string | null
+          sort_order: number
+          text: string
+        }
+        Insert: {
+          announcement_id: string
+          created_at?: string
+          id?: string
+          link_text?: string | null
+          link_url?: string | null
+          sort_order?: number
+          text: string
+        }
+        Update: {
+          announcement_id?: string
+          created_at?: string
+          id?: string
+          link_text?: string | null
+          link_url?: string | null
+          sort_order?: number
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "changelog_updates_announcement_id_fkey"
+            columns: ["announcement_id"]
+            isOneToOne: false
+            referencedRelation: "changelog_announcements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       comments: {
         Row: {
           comment: string
