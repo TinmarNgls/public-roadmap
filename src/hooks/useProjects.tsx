@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Project } from '../types';
 import { useToast } from '@/hooks/use-toast';
@@ -81,13 +80,43 @@ export function useProjects() {
     }
   });
 
+  // Function to call the webhook
+  const callWebhook = async (ideaData: { id: string; title: string; description: string; created_by: string; created_at: string; status: string }) => {
+    try {
+      console.log('Calling webhook with idea data:', ideaData);
+      await fetch('https://hook.eu1.make.com/0ol3ly1sse9rc8nyb1ouqj2tpmhehxcf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'no-cors',
+        body: JSON.stringify(ideaData),
+      });
+      console.log('Webhook called successfully');
+    } catch (error) {
+      console.error('Error calling webhook:', error);
+      // Don't show error to user as this is a background operation
+    }
+  };
+
   // Handle new idea mutation
   const newIdeaMutation = useMutation({
     mutationFn: ({ title, description, author }: { title: string; description: string; author: string }) => 
       createIdea(title, description, author),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       queryClient.invalidateQueries({ queryKey: ['projects'] });
       setNewIdeaId(data.id); // Set the new idea ID so it will be focused when displayed
+      
+      // Call webhook with the new idea data
+      await callWebhook({
+        id: data.id,
+        title: data.title,
+        description: data.description,
+        created_by: data.created_by,
+        created_at: data.created_at,
+        status: data.status
+      });
+      
       toast({
         title: "Idea submitted!",
         description: "Thank you for your contribution.",
