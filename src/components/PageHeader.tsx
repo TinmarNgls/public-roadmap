@@ -1,35 +1,38 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 import LanguageSelector from './LanguageSelector';
 
 const PageHeader: React.FC = () => {
   const { t } = useTranslation();
-  
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const location = useLocation();
   
   return (
     <div className="mb-16 py-0">
       {/* Top Navigation Banner */}
       <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-700">
         <div className="flex items-center gap-8">
-          <button 
-            onClick={() => scrollToSection('roadmap')}
-            className="text-gray-300 hover:text-white transition-colors font-medium"
+          <Link 
+            to="/"
+            className={`transition-colors font-medium ${
+              location.pathname === '/' 
+                ? 'text-white' 
+                : 'text-gray-300 hover:text-white'
+            }`}
           >
             Roadmap
-          </button>
-          <button 
-            onClick={() => scrollToSection('changelog')}
-            className="text-gray-300 hover:text-white transition-colors font-medium"
+          </Link>
+          <Link 
+            to="/changelog"
+            className={`transition-colors font-medium ${
+              location.pathname === '/changelog' 
+                ? 'text-white' 
+                : 'text-gray-300 hover:text-white'
+            }`}
           >
             Changelog
-          </button>
+          </Link>
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />
