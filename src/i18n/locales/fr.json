@@ -1,7 +1,7 @@
 
 {
   "header": {
-    "title": "Ce que nous construisons (ensemble)",
+    "title": "Ensemble, faisons évoluer Shotgun",
     "subtitle": "Découvrez les prochaines nouveautés, votez pour vos fonctionnalités préférées et partagez vos idées pour faire de Shotgun l'outil idéal"
   },
   "search": {
@@ -9,7 +9,7 @@
     "newIdea": "Soumettre une idée"
   },
   "status": {
-    "released": "Récemment publié",
+    "released": "Nouveautés récentes",
     "ongoing": "En cours",
     "next_up": "À venir",
     "submitted": "À l'étude",
