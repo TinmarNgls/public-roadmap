@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { formatAnnouncementDate } from '@/utils/dateUtils';
 
 interface ChangelogAnnouncementProps {
@@ -12,18 +13,20 @@ interface ChangelogAnnouncementProps {
 }
 
 const ChangelogAnnouncement: React.FC<ChangelogAnnouncementProps> = ({ announcement }) => {
+  const { i18n } = useTranslation();
+  
   return (
-    <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
-      {/* Date - stacked on mobile, left side on desktop */}
-      <div className="lg:w-48 lg:flex-shrink-0 lg:text-right mb-4 lg:mb-0">
+    <div className="flex flex-col lg:flex-row lg:gap-8">
+      {/* Date - stacked on mobile, left side on desktop, aligned with title baseline */}
+      <div className="lg:w-48 lg:flex-shrink-0 lg:text-right mb-4 lg:mb-0 lg:pt-1">
         <span className="text-gray-400 text-sm font-medium">
-          {formatAnnouncementDate(announcement.date)}
+          {formatAnnouncementDate(announcement.date, i18n.language)}
         </span>
       </div>
       
       {/* Content - full width on mobile, constrained on desktop */}
       <div className="flex-1 lg:max-w-4xl">
-        <h3 className="text-xl lg:text-2xl font-semibold text-gray-100 mb-4 lg:mb-6">{announcement.title}</h3>
+        <h3 className="text-xl lg:text-2xl font-semibold text-gray-100 mb-4 lg:mb-6 leading-tight">{announcement.title}</h3>
         
         {/* Render HTML content safely */}
         <div 
