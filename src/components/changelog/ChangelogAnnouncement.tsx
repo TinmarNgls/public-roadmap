@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { useEnhancedTranslation } from '@/hooks/useEnhancedTranslation';
 import { formatAnnouncementDate } from '@/utils/dateUtils';
 
 interface ChangelogAnnouncementProps {
@@ -13,9 +12,6 @@ interface ChangelogAnnouncementProps {
 }
 
 const ChangelogAnnouncement: React.FC<ChangelogAnnouncementProps> = ({ announcement }) => {
-  const { translatedText: translatedTitle } = useEnhancedTranslation(announcement.title, 'en');
-  const { translatedText: translatedContent } = useEnhancedTranslation(announcement.content, 'en');
-
   return (
     <div className="relative flex items-start">
       {/* Date on the left */}
@@ -27,7 +23,7 @@ const ChangelogAnnouncement: React.FC<ChangelogAnnouncementProps> = ({ announcem
       
       {/* Content */}
       <div className="ml-8 bg-[#383b3e] rounded-lg p-6 border border-gray-700 flex-1">
-        <h3 className="text-xl font-semibold text-gray-100 mb-4">{translatedTitle}</h3>
+        <h3 className="text-xl font-semibold text-gray-100 mb-4">{announcement.title}</h3>
         
         {/* Render HTML content safely */}
         <div 
@@ -39,7 +35,7 @@ const ChangelogAnnouncement: React.FC<ChangelogAnnouncementProps> = ({ announcem
             prose-li:text-gray-300 prose-li:mb-1
             prose-a:text-blue-400 prose-a:underline hover:prose-a:text-blue-300
             prose-a:transition-colors"
-          dangerouslySetInnerHTML={{ __html: translatedContent }}
+          dangerouslySetInnerHTML={{ __html: announcement.content }}
         />
       </div>
     </div>
