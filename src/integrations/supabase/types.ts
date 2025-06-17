@@ -12,29 +12,53 @@ export type Database = {
       changelog_announcements: {
         Row: {
           content: string | null
+          content_en: string | null
+          content_fr: string | null
+          content_pt_br: string | null
+          content_pt_pt: string | null
           created_at: string
           date: string
           id: string
           published: boolean
           title: string
+          title_en: string | null
+          title_fr: string | null
+          title_pt_br: string | null
+          title_pt_pt: string | null
           updated_at: string
         }
         Insert: {
           content?: string | null
+          content_en?: string | null
+          content_fr?: string | null
+          content_pt_br?: string | null
+          content_pt_pt?: string | null
           created_at?: string
           date: string
           id?: string
           published?: boolean
           title: string
+          title_en?: string | null
+          title_fr?: string | null
+          title_pt_br?: string | null
+          title_pt_pt?: string | null
           updated_at?: string
         }
         Update: {
           content?: string | null
+          content_en?: string | null
+          content_fr?: string | null
+          content_pt_br?: string | null
+          content_pt_pt?: string | null
           created_at?: string
           date?: string
           id?: string
           published?: boolean
           title?: string
+          title_en?: string | null
+          title_fr?: string | null
+          title_pt_br?: string | null
+          title_pt_pt?: string | null
           updated_at?: string
         }
         Relationships: []

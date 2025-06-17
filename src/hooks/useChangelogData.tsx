@@ -7,6 +7,14 @@ interface ChangelogAnnouncement {
   date: string;
   title: string;
   content: string;
+  title_en?: string;
+  title_fr?: string;
+  title_pt_pt?: string;
+  title_pt_br?: string;
+  content_en?: string;
+  content_fr?: string;
+  content_pt_pt?: string;
+  content_pt_br?: string;
 }
 
 export const useChangelogData = () => {
@@ -17,7 +25,20 @@ export const useChangelogData = () => {
 
       const { data, error } = await supabase
         .from('changelog_announcements')
-        .select('id, date, title, content')
+        .select(`
+          id, 
+          date, 
+          title, 
+          content,
+          title_en,
+          title_fr,
+          title_pt_pt,
+          title_pt_br,
+          content_en,
+          content_fr,
+          content_pt_pt,
+          content_pt_br
+        `)
         .eq('published', true)
         .order('created_at', { ascending: false });
 

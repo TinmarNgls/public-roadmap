@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatAnnouncementDate } from '@/utils/dateUtils';
+import { getTranslatedContent } from '@/utils/translationUtils';
 
 interface ChangelogAnnouncementProps {
   announcement: {
@@ -9,11 +10,22 @@ interface ChangelogAnnouncementProps {
     date: string;
     title: string;
     content: string;
+    title_en?: string;
+    title_fr?: string;
+    title_pt_pt?: string;
+    title_pt_br?: string;
+    content_en?: string;
+    content_fr?: string;
+    content_pt_pt?: string;
+    content_pt_br?: string;
   };
 }
 
 const ChangelogAnnouncement: React.FC<ChangelogAnnouncementProps> = ({ announcement }) => {
   const { i18n } = useTranslation();
+  
+  // Get translated content based on current language
+  const { title, content } = getTranslatedContent(announcement, i18n.language);
   
   return (
     <div className="flex flex-col lg:flex-row lg:gap-8">
@@ -26,7 +38,7 @@ const ChangelogAnnouncement: React.FC<ChangelogAnnouncementProps> = ({ announcem
       
       {/* Content - full width on mobile, constrained on desktop */}
       <div className="flex-1 lg:max-w-4xl">
-        <h3 className="text-xl lg:text-2xl font-semibold text-gray-100 mb-4 lg:mb-6 leading-tight">{announcement.title}</h3>
+        <h3 className="text-xl lg:text-2xl font-semibold text-gray-100 mb-4 lg:mb-6 leading-tight">{title}</h3>
         
         {/* Render HTML content safely */}
         <div 
@@ -41,7 +53,7 @@ const ChangelogAnnouncement: React.FC<ChangelogAnnouncementProps> = ({ announcem
             prose-h1:text-gray-100 prose-h1:text-lg lg:prose-h1:text-xl prose-h1:font-semibold prose-h1:mb-4
             prose-h2:text-gray-100 prose-h2:text-base lg:prose-h2:text-lg prose-h2:font-semibold prose-h2:mb-3
             prose-h3:text-gray-100 prose-h3:text-sm lg:prose-h3:text-base prose-h3:font-semibold prose-h3:mb-2"
-          dangerouslySetInnerHTML={{ __html: announcement.content }}
+          dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
     </div>
