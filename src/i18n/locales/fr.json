@@ -5,15 +5,15 @@
     "subtitle": "Découvrez les prochaines nouveautés, votez pour vos fonctionnalités préférées et partagez vos idées pour faire de Shotgun l'outil idéal"
   },
   "changelog": {
-    "title": "Dernières nouveautés",
-    "subtitle": "Découvrez les dernières améliorations apportées au Smartboard pour mieux gérer vos événements, suivre vos ventes et engager votre communauté."
+    "title": "Restez à jour sur les évolutions de Shotgun",
+    "subtitle": "Toutes les mises à jour pour les organisateurs et les fans Shotgun, en détail: projets, fonctionnalités, correction de bug..."
   },
   "search": {
-    "placeholder": "Rechercher des idées...",
+    "placeholder": "Rechercher une idée",
     "newIdea": "Soumettre une idée"
   },
   "status": {
-    "released": "Nouveautés récentes",
+    "released": "Nouveautés",
     "ongoing": "En cours",
     "next_up": "À venir",
     "submitted": "À l'étude",
