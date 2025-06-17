@@ -69,7 +69,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
             <span className="text-gray-300">{column.icon}</span>
             <h3 className="font-medium text-sm text-gray-200">{column.title}</h3>
           </div>
-          <div className="p-3 space-y-3 max-h-[calc(100vh-220px)] overflow-y-auto">
+          <div className="p-3 space-y-3">
             {groupedProjects[column.id]?.length ? 
               groupedProjects[column.id].map(project => (
                 <ProjectCard 
