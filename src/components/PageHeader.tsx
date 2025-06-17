@@ -22,7 +22,7 @@ const PageHeader: React.FC = () => {
                 : 'text-gray-300 hover:text-white'
             }`}
           >
-            Roadmap
+            {t('navigation.roadmap')}
           </Link>
           <Link 
             to="/changelog"
@@ -32,7 +32,7 @@ const PageHeader: React.FC = () => {
                 : 'text-gray-300 hover:text-white'
             }`}
           >
-            Changelog
+            {t('navigation.changelog')}
           </Link>
         </div>
         <div className="flex items-center gap-4">
