@@ -1,12 +1,10 @@
 
 interface TranslatableContent {
-  title: string;
-  content: string;
-  title_en?: string;
+  title_en: string;
   title_fr?: string;
   title_pt_pt?: string;
   title_pt_br?: string;
-  content_en?: string;
+  content_en: string;
   content_fr?: string;
   content_pt_pt?: string;
   content_pt_br?: string;
@@ -33,16 +31,16 @@ export const getTranslatedContent = (
     const translatedTitle = content[titleKey] as string;
     const translatedContent = content[contentKey] as string;
     
-    // Return translated content if available, otherwise fall back to default
+    // Return translated content if available, otherwise fall back to English
     return {
-      title: translatedTitle || content.title,
-      content: translatedContent || content.content
+      title: translatedTitle || content.title_en,
+      content: translatedContent || content.content_en
     };
   }
 
-  // Fallback to default content
+  // Fallback to English content
   return {
-    title: content.title,
-    content: content.content
+    title: content.title_en,
+    content: content.content_en
   };
 };

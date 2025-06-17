@@ -6,8 +6,14 @@ interface ChangelogTimelineProps {
   announcements: Array<{
     id: string;
     date: string;
-    title: string;
-    content: string;
+    title_en: string;
+    title_fr?: string;
+    title_pt_pt?: string;
+    title_pt_br?: string;
+    content_en: string;
+    content_fr?: string;
+    content_pt_pt?: string;
+    content_pt_br?: string;
   }>;
 }
 
