@@ -19,7 +19,7 @@ export const useChangelogData = () => {
         .from('changelog_announcements')
         .select('id, date, title, content')
         .eq('published', true)
-        .order('date', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error fetching announcements:', error);
