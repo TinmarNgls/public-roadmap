@@ -5,12 +5,12 @@
     "subtitle": "Explore what's coming, vote on features, and let us know what would make Shotgun even better for your events"
   },
   "navigation": {
-    "roadmap": "Roadmap",
-    "changelog": "Changelog"
+    "roadmap": "Projects",
+    "changelog": "What's New"
   },
   "changelog": {
-    "title": "What's New",
-    "subtitle": "Discover the latest product updates, feature releases, and improvements designed to enhance your experience—on both sides of the decks."
+    "title": "Stay up to date on latest improvements",
+    "subtitle": "All updates on both side of the deck for organizers and fans, in detail: projects, features, bug fixes..."
   },
   "search": {
     "placeholder": "Search ideas...",
