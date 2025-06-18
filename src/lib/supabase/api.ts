@@ -1,4 +1,3 @@
-
 import { supabase } from './client';
 import type { Project, Comment } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
@@ -81,6 +80,7 @@ export async function fetchIdeas(): Promise<Project[]> {
         description,
         status_updated_at
       `)
+      .neq('status', 'archived') // Filter out archived ideas
       .order('created_at', { ascending: false });
 
     if (error) {

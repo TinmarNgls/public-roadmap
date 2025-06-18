@@ -1,5 +1,3 @@
-
-
 export type Json =
   | string
   | number
@@ -16,7 +14,7 @@ export interface Database {
           id: string
           created_by: string
           created_at: string
-          status: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted'
+          status: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted' | 'archived'
           title: string
           description: string
         }
@@ -24,7 +22,7 @@ export interface Database {
           id?: string
           created_by: string
           created_at?: string
-          status: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted'
+          status: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted' | 'archived'
           title: string
           description: string
         }
@@ -32,7 +30,7 @@ export interface Database {
           id?: string
           created_by?: string
           created_at?: string
-          status?: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted'
+          status?: 'released' | 'ongoing' | 'consideration' | 'backlog' | 'submitted' | 'archived'
           title?: string
           description?: string
         }
@@ -170,4 +168,3 @@ export interface Database {
     }
   }
 }
-
